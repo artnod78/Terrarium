@@ -1,0 +1,33 @@
+#######################################
+# Syntax Coloring Map For CyclicTimer
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+CyclicTimer	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+setValue	KEYWORD2
+enable	KEYWORD2
+run	KEYWORD2
+getValue	KEYWORD2
+isWorking	KEYWORD2
+isEnable	KEYWORD2
+loadAll	KEYWORD2
+saveAll	KEYWORD2
+saveValue	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+CYCLIC_DAY_ON	LITERAL1
+CYCLIC_DAY_OFF	LITERAL1
+CYCLIC_NIGHT_ON	LITERAL1
+CYCLIC_NIGHT_OFF	LITERAL1
+CYCLIC_ENABLE	LITERAL1

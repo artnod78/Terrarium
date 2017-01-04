@@ -1,0 +1,31 @@
+#######################################
+# Syntax Coloring Map For Thermostat
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Thermostat	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+setValue	KEYWORD2
+enable	KEYWORD2
+run	KEYWORD2
+getValue	KEYWORD2
+isWorking	KEYWORD2
+isEnable	KEYWORD2
+loadAll	KEYWORD2
+saveAll	KEYWORD2
+saveValue	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+THERMOSTAT_DAY	LITERAL1
+THERMOSTAT_NIGHT	LITERAL1
+THERMOSTAT_ENABLE	LITERAL1
