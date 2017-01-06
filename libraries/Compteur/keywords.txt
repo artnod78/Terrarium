@@ -1,0 +1,41 @@
+#######################################
+# Syntax Coloring Map For CyclicTimer
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Compteur	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+run	KEYWORD2
+setIndex	KEYWORD2
+setSelect	KEYWORD2
+getValue	KEYWORD2
+isSelect	KEYWORD2
+index	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+MENU_HOME	LITERAL1
+MENU_LIGHT	LITERAL1
+MENU_PULVE	LITERAL1
+MENU_TAPIS	LITERAL1
+MENU_BRUMI	LITERAL1
+MENU_CLOCK	LITERAL1
+LIGHT_ENABLE	LITERAL1
+LIGHT_RETURN	LITERAL1
+PULVE_ENABLE	LITERAL1
+PULVE_RETURN	LITERAL1
+TAPIS_ENABLE	LITERAL1 
+TAPIS_RETURN	LITERAL1 
+BRUMI_ENABLE	LITERAL1 
+BRUMI_RETURN	LITERAL1
+CLOCK_DATE	LITERAL1   
+CLOCK_HEURE	LITERAL1	 
+CLOCK_RETURN	LITERAL1

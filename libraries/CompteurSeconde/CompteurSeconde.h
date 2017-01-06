@@ -1,13 +1,6 @@
 #ifndef CompteurSeconde_h
 #define CompteurSeconde_h
 
-#define btnRIGHT  0
-#define btnUP     1
-#define btnDOWN   2
-#define btnLEFT   3
-#define btnSELECT 4
-#define btnNONE   5
-
 class CompteurSeconde
 {
 	public:

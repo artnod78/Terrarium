@@ -1,5 +1,3 @@
-#include <EEPROM.h>
-
 #include <Wire.h>
 #include <RTClib.h>
 
@@ -26,42 +24,34 @@
 #include <CompteurSeconde.h>
 #include <CompteurInt.h>
 
-
+#define KEY_PIN			0
+#define ONE_WIRE_BUS	2
+#define DHT_PIN			3
 #define RETRO_PIN		10
-#define RETRO_SECOND_ON	15
-
-#define ONE_WIRE_BUS		2
-#define TEMPERATURE_SECOND	15
-
-#define DHT_PIN		3
-#define DHTTYPE		DHT11
-#define DHT_SECOND	5
-
+#define ECHO_PIN			11
 #define TRIGGER_PIN		12
-#define ECHO_PIN		11
-#define MAX_DISTANCE	100
-#define LVL_CRIT		20
-#define SONAR_SECOND	5
-
-#define LIGHT_PIN		15
-#define EEPROM_LIGHT	0
-
-#define PULVE_PIN		16
-#define EEPROM_PULVE	5
-
-#define TAPIS_PIN		17
-#define EEPROM_TAPIS	22
-
 #define BRUMI_PIN		13
+#define LIGHT_PIN			15
+#define PULVE_PIN			16
+#define TAPIS_PIN			17
+
+#define EEPROM_LIGHT	0
+#define EEPROM_PULVE	5
+#define EEPROM_TAPIS	22
 #define EEPROM_BRUMI	31
 
-#define KEY_PIN	0
+#define RETRO_SECOND_ON		15
+#define TEMPERATURE_SECOND	5
+#define DHT_SECOND					1
+#define SONAR_SECOND				1
 
+#define DHTTYPE			DHT11
+#define MAX_DISTANCE	100
+#define LVL_CRIT			20
 
 // CLOCK
 RTC_DS1307 rtc;
 DateTime now;
-int last_sec = 0;
 
 // LCD
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
@@ -106,16 +96,12 @@ CompteurHeure cpt_HEURE;
 CompteurSeconde cpt_SECONDE;
 CompteurInt cpt_INT;
 
-
-// ###############
 // ### SENSORS ###
-// ###############
 void mesurer_sondes()
 {
   // DS18B20
   if ((now.unixtime() - last_temperature) >= TEMPERATURE_SECOND)
   {
-    Serial.println("get sol");
     sensors.requestTemperatures();
     temperature = sensors.getTempCByIndex(0);
     last_temperature = now.unixtime();
@@ -124,13 +110,11 @@ void mesurer_sondes()
   // DHT11/22
   if ((now.unixtime() - last_humidity) >=  DHT_SECOND)
   {
-    Serial.println("get air");
     sensors.requestTemperatures();
     float tmp_hum = dht.readHumidity();
     float tmp_temp = dht.readTemperature();
     if (isnan(tmp_hum) || isnan(tmp_temp))
     {
-      Serial.println("DHT FAIL");
       return;
     }
     humA	= tmp_hum;
@@ -141,18 +125,15 @@ void mesurer_sondes()
   // HC-SR04
   if ((now.unixtime() - last_sonar) >=  SONAR_SECOND)
   {
-    Serial.println("get tank");
     unsigned int temp_cm = sonar.ping_cm();
-    if (temp_cm > 0) reservoir = temp_cm;
+    if ((temp_cm > 0) && (temp_cm < MAX_DISTANCE)) reservoir = temp_cm;
     if (reservoir >= LVL_CRIT) alerte = true;
     else alerte = false;
     last_sonar = now.unixtime();
   }
 }
 
-// ############
 // ### HOME ###
-// ############
 void home_menu()
 {
 	// affichage
@@ -183,9 +164,8 @@ void home_menu()
 	lcd.print(" ");
 	lcd.print((int)humA);
 	lcd.print(" ");
-	if ((LVL_CRIT - reservoir) < 10) lcd.print(0);
-	lcd.print(LVL_CRIT - reservoir);
-	lcd.print(" ");
+	if (reservoir < 10) lcd.print(0);
+	lcd.print(reservoir);
 	
 	lcd.setCursor(12, 1);
 	lcd.print(lumiere.isWorking() ? 1 : 0);
@@ -199,9 +179,7 @@ void home_menu()
 	if (cpt_MENU.isSelect()) cpt_MENU.setSelect(false);
 }
 
-// ###############
 // ### LUMIERE ###
-// ###############
 void lumiere_home()
 {
 	// affichage
@@ -312,9 +290,7 @@ void lumiere_saisi()
 	}
 }
 
-// #####################
 // ### PULVERISATEUR ###
-// #####################
 void pulve_home()
 {
 	// affichage
@@ -450,9 +426,7 @@ void pulve_saisi()
 	}
 }
 
-// #############
 // ### TAPIS ###
-// #############
 void tapis_home()
 {
 	// affichage
@@ -559,10 +533,7 @@ void tapis_saisi()
 	}
 }
 
-
-// #############
 // ### BRUMI ###
-// #############
 void brumi_home()
 {
 	// affichage
@@ -692,10 +663,7 @@ void brumi_saisi()
 	}
 }
 
-
-// #############
 // ### CLOCK ###
-// #############
 void save_clock(int param)
 {
 	switch (param)
@@ -843,21 +811,10 @@ void clock_saisi()
 	}
 }
 
-// ############
-// ### MAIN ###
-// ############
-void configure_objects()
-{
-  lumiere.loadAll(EEPROM_LIGHT);
-  pulverisateur.loadAll(EEPROM_PULVE);
-  tapis.loadAll(EEPROM_TAPIS);
-  brumi.loadAll(EEPROM_BRUMI);
-  now = rtc.now();
-  retro_start = now.unixtime();
-}
+// ### IHM ###
 void gestion_retro()
 {
-	// refresh retro timer
+	// clear and refresh retro timer
 	if (keypad.key() != refresh_key)
 	{
 		retro_start = now.unixtime();
@@ -890,9 +847,7 @@ void gestion_retro()
 		{
 			analogWrite(RETRO_PIN, 0);
 			lcd.clear();
-			// retour à l'accueil
 			cpt_MENU.setIndex(MENU_HOME);
-			// reset tous les autres compteur
 			cpt_LIGHT.setIndex(DAILY_ON);
 			cpt_LIGHT.setSelect(false);
 			cpt_PULVE.setIndex(CYCLIC_DAY_ON);
@@ -906,43 +861,6 @@ void gestion_retro()
 		}
 		retro_on = working;
 	}  
-}
-void afficher_serial()
-{
-	Serial.print("*** ");
-	if (now.hour() < 10)Serial.print(0);
-	Serial.print(now.hour());
-	Serial.print(":");
-	if (now.minute() < 10)Serial.print(0);
-	Serial.print(now.minute());
-	Serial.print(":");
-	if (now.second() < 10)Serial.print(0);
-	Serial.print(now.second());
-	Serial.println(" ***");
-	Serial.print("Light:\t");
-	Serial.print(lumiere.getValue(DAILY_ON));
-	Serial.print("-");
-	Serial.println(lumiere.getValue(DAILY_OFF));
-	Serial.print("Pulve:\t");
-	Serial.print(pulverisateur.getValue(CYCLIC_DAY_ON));
-	Serial.print("-");
-	Serial.print(pulverisateur.getValue(CYCLIC_DAY_OFF));
-	Serial.print("-");
-	Serial.print(pulverisateur.getValue(CYCLIC_NIGHT_ON));
-	Serial.print("-");
-	Serial.println(pulverisateur.getValue(CYCLIC_NIGHT_OFF));
-	Serial.print("Tapis:\t");
-	Serial.print(tapis.getValue(THERMOSTAT_DAY));
-	Serial.print("-");
-	Serial.println(tapis.getValue(THERMOSTAT_NIGHT));
-	Serial.print("Brumi:\t");
-	Serial.print(brumi.getValue(HYGRO_DAY_MIN));
-	Serial.print("-");
-	Serial.print(brumi.getValue(HYGRO_DAY_MAX));
-	Serial.print("-");
-	Serial.print(brumi.getValue(HYGRO_NIGHT_MIN));
-	Serial.print("-");
-	Serial.println(brumi.getValue(HYGRO_NIGHT_MAX));
 }
 void ihm()
 {
@@ -989,45 +907,35 @@ void ihm()
 		default:
 			break;
 	}
-	
-	// serial
-	if (now.second() != last_sec)
-	{
-		afficher_serial();
-		last_sec = now.second();
-	}
 }
+
+// ### MAIN ###
 void setup()
 {
-  Serial.begin(9600);
-  Serial.println("****************");
-  Serial.println("Setup");
-
-  Serial.println("Init RTC");
   Wire.begin();
   rtc.begin();
   if (! rtc.isrunning())
   {
     rtc.adjust(DateTime(__DATE__, __TIME__));
   }
-
-  Serial.println("Init LCD");
+  
   lcd.begin(16, 2);
   pinMode(RETRO_PIN, OUTPUT);
+  now = rtc.now();
+  retro_start = now.unixtime();
 
-  Serial.println("Init DHT");
   dht.begin();
 
-  Serial.println("Init OBJECTS");
-  configure_objects();
+  lumiere.loadAll(EEPROM_LIGHT);
+  pulverisateur.loadAll(EEPROM_PULVE);
+  tapis.loadAll(EEPROM_TAPIS);
+  brumi.loadAll(EEPROM_BRUMI);
 }
 void loop()
 {
 	now = rtc.now();
-	
-	mesurer_sondes();
-	
 	int nowInMinutes = (now.hour() * 60) + now.minute();
+	
 	lumiere.run(nowInMinutes);
 	bool jour = lumiere.isWorking();
 	
@@ -1038,4 +946,6 @@ void loop()
 	brumi.run(humA, jour);
 	
 	ihm();
+	
+	mesurer_sondes();
 }

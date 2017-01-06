@@ -1,0 +1,23 @@
+#######################################
+# Syntax Coloring Map For CyclicTimer
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+CompteurSeconde	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+start	KEYWORD2
+run	KEYWORD2
+isSelect	KEYWORD2
+seconde	KEYWORD2
+increment	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
