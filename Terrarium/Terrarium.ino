@@ -59,6 +59,7 @@ ReadKey keypad(KEY_PIN);
 unsigned long retro_start = 0;
 bool retro_on = false;
 int refresh_key = btnNONE;
+int last_sec =0;
 
 // DS18B20
 OneWire oneWire(ONE_WIRE_BUS);
@@ -103,7 +104,8 @@ void mesurer_sondes()
   if ((now.unixtime() - last_temperature) >= TEMPERATURE_SECOND)
   {
     sensors.requestTemperatures();
-    temperature = sensors.getTempCByIndex(0);
+    float temp_temperature = sensors.getTempCByIndex(0);
+	if(temp_temperature > 0) temperature= temp_temperature;
     last_temperature = now.unixtime();
   }
 
@@ -172,29 +174,18 @@ void home_menu()
 	lcd.print(pulverisateur.isWorking() ? 1 : 0);
 	lcd.print(tapis.isWorking() ? 1 : 0);
 	lcd.print(brumi.isWorking() ? 1 : 0);
-
-	// saisi
-	keypad.read();
-	cpt_MENU.run(keypad.key());
-	if (cpt_MENU.isSelect()) cpt_MENU.setSelect(false);
 }
 
 // ### LUMIERE ###
 void lumiere_home()
 {
-	// affichage
 	lcd.setCursor(0, 0);
 	lcd.print("Configurer");
 	lcd.setCursor(0, 1);
 	lcd.print("Timer Lumiere");
-	
-	// saisi
-	keypad.read();
-	cpt_MENU.run(keypad.key());
 }
 void lumiere_conf()
 {
-	// affichage
 	switch (cpt_LIGHT.index())
 	{
 		case DAILY_ON:
@@ -226,36 +217,9 @@ void lumiere_conf()
 		default:
 			break;
 	}
-	
-	// saisi
-	keypad.read();
-	cpt_LIGHT.run(keypad.key());
-	if (cpt_LIGHT.isSelect())
-	{
-		if (cpt_LIGHT.index() < LIGHT_ENABLE)
-		{
-			cpt_HEURE.start(lumiere.getValue(cpt_LIGHT.index()));
-		}
-		else if ( cpt_LIGHT.index() == LIGHT_ENABLE)
-		{
-			lumiere.enable(!lumiere.isEnable());
-			lumiere.saveValue(EEPROM_LIGHT, cpt_LIGHT.index());
-			cpt_LIGHT.setSelect(false);
-		}
-		else if ( cpt_LIGHT.index() == LIGHT_RETURN)
-		{
-			cpt_LIGHT.setSelect(false);
-			cpt_LIGHT.setIndex(DAILY_ON);
-			cpt_MENU.setSelect(false);
-		}
-	}
 }
 void lumiere_saisi()
 {
-	int heure  = cpt_HEURE.heure();
-	int minute = cpt_HEURE.minute();
-	
-	// affichage
 	lcd.setCursor(0, 0);
 	switch (cpt_LIGHT.index())
 	{
@@ -273,39 +237,23 @@ void lumiere_saisi()
 			break;
 	}
 	lcd.setCursor(0, 1);
-	if (heure < 10) lcd.print("0");
-	lcd.print(heure);
+	if (cpt_HEURE.heure() < 10) lcd.print("0");
+	lcd.print(cpt_HEURE.heure());
 	lcd.print(":");
-	if (minute < 10) lcd.print("0");
-	lcd.print(minute);
-	
-	// saisi
-	keypad.read();
-	cpt_HEURE.run(keypad.key());
-	if (cpt_HEURE.isSelect())
-	{
-		lumiere.setValue(cpt_LIGHT.index(), cpt_HEURE.time());
-		lumiere.saveValue(EEPROM_LIGHT, cpt_LIGHT.index());
-		cpt_LIGHT.setSelect(false);
-	}
+	if (cpt_HEURE.minute() < 10) lcd.print("0");
+	lcd.print(cpt_HEURE.minute());
 }
 
 // ### PULVERISATEUR ###
 void pulve_home()
 {
-	// affichage
 	lcd.setCursor(0, 0);
 	lcd.print("Configurer");
 	lcd.setCursor(0, 1);
 	lcd.print("Timer Pulve");
-	
-	// saisi
-	keypad.read();
-	cpt_MENU.run(keypad.key());
 }
 void pulve_conf()
 {
-	// affichage
 	switch (cpt_PULVE.index()) {
 		case CYCLIC_DAY_ON:
 			lcd.setCursor(0, 0);
@@ -350,35 +298,10 @@ void pulve_conf()
 		default:
 			break;
 	}
-	
-	// saisi
-	keypad.read();
-	cpt_PULVE.run(keypad.key());
-	if (cpt_PULVE.isSelect())
-	{
-		if (cpt_PULVE.index() < PULVE_ENABLE)
-		{
-			cpt_SECONDE.start(pulverisateur.getValue(cpt_PULVE.index()));
-		}
-		else if ( cpt_PULVE.index() == PULVE_ENABLE)
-		{
-			pulverisateur.enable(!pulverisateur.isEnable());
-			pulverisateur.saveValue(EEPROM_PULVE,cpt_PULVE.index());
-			cpt_PULVE.setSelect(false);
-		}
-		else if ( cpt_PULVE.index() == PULVE_RETURN)
-		{
-			cpt_PULVE.setSelect(false);
-			cpt_PULVE.setIndex(CYCLIC_DAY_ON);
-			cpt_MENU.setSelect(false);
-		}
-	}
 }
 void pulve_saisi()
 {
 	unsigned int int_val = cpt_SECONDE.seconde();
-	
-	// affichage
 	int increment = cpt_SECONDE.increment();
 	switch (cpt_PULVE.index()) {
 		case CYCLIC_DAY_ON:
@@ -414,35 +337,20 @@ void pulve_saisi()
 	else if (increment == 60) lcd.setCursor(14, 1);
 	else if (increment == 3600) lcd.setCursor(12, 1);
 	lcd.print(increment);
-	
-	// saisi
-	keypad.read();
-	cpt_SECONDE.run(keypad.key());
-	if (cpt_SECONDE.isSelect())
-	{
-		pulverisateur.setValue(cpt_PULVE.index(), int_val);
-		pulverisateur.saveValue(EEPROM_PULVE, cpt_PULVE.index());
-		cpt_PULVE.setSelect(false);
-	}
 }
 
 // ### TAPIS ###
 void tapis_home()
 {
-	// affichage
 	lcd.setCursor(0, 0);
 	lcd.print("Configurer");
 	lcd.setCursor(0, 1);
 	lcd.print("Thermostat Tapis");
-	
-	// saisi
-	keypad.read();
-	cpt_MENU.run(keypad.key());
 }
 void tapis_conf()
 {
-	// affichage
-	switch (cpt_TAPIS.index()) {
+	switch (cpt_TAPIS.index()) 
+	{
 		case THERMOSTAT_DAY:
 			lcd.setCursor(0, 0);
 			lcd.print("Configuration");
@@ -472,35 +380,9 @@ void tapis_conf()
 		default:
 			break;
 	}
-	
-	// saisi
-	keypad.read();
-	cpt_TAPIS.run(keypad.key());
-	if (cpt_TAPIS.isSelect())
-	{
-		if (cpt_TAPIS.index() < TAPIS_ENABLE)
-		{
-			cpt_INT.start(tapis.getValue(cpt_TAPIS.index()));
-		}
-		else if ( cpt_TAPIS.index() == TAPIS_ENABLE)
-		{
-			tapis.enable(!tapis.isEnable());
-			tapis.saveValue(EEPROM_TAPIS, cpt_TAPIS.index());
-			cpt_TAPIS.setSelect(false);
-		}
-		else if ( cpt_TAPIS.index() == TAPIS_RETURN)
-		{
-			cpt_TAPIS.setSelect(false);
-			cpt_TAPIS.setIndex(THERMOSTAT_DAY);
-			cpt_MENU.setSelect(false);
-		}
-	}
 }
 void tapis_saisi()
 {
-	unsigned int int_val = cpt_INT.value();
-	
-	// affichage
 	switch (cpt_TAPIS.index())
 	{
 		case THERMOSTAT_DAY:
@@ -517,39 +399,24 @@ void tapis_saisi()
 			break;
 	}
 	lcd.setCursor(0, 1);
-	if (int_val < 10) lcd.print("0");
-	lcd.print(int_val);
+	if (cpt_INT.value() < 10) lcd.print("0");
+	lcd.print(cpt_INT.value());
 	lcd.print((char)223);
 	lcd.print("C");
-	
-	// saisi
-	keypad.read();
-	cpt_INT.run(keypad.key());
-	if (cpt_INT.isSelect())
-	{
-		tapis.setValue(cpt_TAPIS.index(), int_val);
-		tapis.saveValue(EEPROM_TAPIS, cpt_TAPIS.index());
-		cpt_TAPIS.setSelect(false);
-	}
 }
 
 // ### BRUMI ###
 void brumi_home()
 {
-	// affichage
 	lcd.setCursor(0, 0);
 	lcd.print("Configurer");
 	lcd.setCursor(0, 1);
 	lcd.print("Brumisateur");
-	
-	// saisi
-	keypad.read();
-	cpt_MENU.run(keypad.key());
 }
 void brumi_conf()
 {
-	// affichage
-	switch (cpt_BRUMI.index()) {
+	switch (cpt_BRUMI.index())
+	{
 		case HYGRO_DAY_MIN:
 			lcd.setCursor(0, 0);
 			lcd.print("Configuration");
@@ -593,35 +460,9 @@ void brumi_conf()
 		default:
 			break;
 	}
-	
-	// saisi
-	keypad.read();
-	cpt_BRUMI.run(keypad.key());
-	if (cpt_BRUMI.isSelect())
-	{
-		if (cpt_BRUMI.index() < BRUMI_ENABLE)
-		{
-			cpt_INT.start(brumi.getValue(cpt_BRUMI.index()));
-		}
-		else if ( cpt_BRUMI.index() == BRUMI_ENABLE)
-		{
-			brumi.enable(!brumi.isEnable());
-			brumi.saveValue(EEPROM_BRUMI,cpt_BRUMI.index());
-			cpt_BRUMI.setSelect(false);
-		}
-		else if ( cpt_BRUMI.index() == BRUMI_RETURN)
-		{
-			cpt_BRUMI.setSelect(false);
-			cpt_BRUMI.setIndex(HYGRO_DAY_MIN);
-			cpt_MENU.setSelect(false);
-		}
-	}
 }
 void brumi_saisi()
 {
-	unsigned int int_val = cpt_INT.value();
-	
-	// affichage
 	switch (cpt_BRUMI.index())
 	{
 		case HYGRO_DAY_MIN:
@@ -648,19 +489,9 @@ void brumi_saisi()
 			break;
 	}
 	lcd.setCursor(0, 1);
-	if (int_val < 10) lcd.print("0");
-	lcd.print(int_val);
+	if (cpt_INT.value() < 10) lcd.print("0");
+	lcd.print(cpt_INT.value());
 	lcd.print("%");
-	
-	// saisi
-	keypad.read();
-	cpt_INT.run(keypad.key());
-	if (cpt_INT.isSelect())
-	{
-		brumi.setValue(cpt_BRUMI.index(), int_val);
-		brumi.saveValue(EEPROM_BRUMI,cpt_BRUMI.index());
-		cpt_BRUMI.setSelect(false);
-	}
 }
 
 // ### CLOCK ###
@@ -682,19 +513,13 @@ void save_clock(int param)
 }
 void clock_home()
 {
-	// affichage
 	lcd.setCursor(0, 0);
 	lcd.print("Configurer");
 	lcd.setCursor(0, 1);
 	lcd.print("Horloge");
-	
-	// saisi
-	keypad.read();
-	cpt_MENU.run(keypad.key());
 }
 void clock_conf()
 {
-	// affichage
 	switch (cpt_CLOCK.index())
 	{
 		case CLOCK_DATE:
@@ -719,34 +544,12 @@ void clock_conf()
 		default:
 			break;
 	}
-	
-	// saisi
-	keypad.read();
-	cpt_CLOCK.run(keypad.key());
-	if (cpt_CLOCK.isSelect())
-	{
-		if (cpt_CLOCK.index() == CLOCK_DATE)
-		{
-			cpt_DATE.start(now.year(), now.month(), now.day());
-		}
-		else if (cpt_CLOCK.index() == CLOCK_HEURE)
-		{
-			cpt_HEURE.start((now.hour() * 60) + now.minute());
-		}
-		else if ( cpt_CLOCK.index() == CLOCK_RETURN)
-		{
-			cpt_CLOCK.setSelect(false);
-			cpt_CLOCK.setIndex(CLOCK_DATE);
-			cpt_MENU.setSelect(false);
-		}
-	}
 }
 void clock_saisi()
 {
 	switch (cpt_CLOCK.index())
 	{
 		case CLOCK_DATE:
-			// affichage
 			lcd.setCursor(0, 0);
 			switch (cpt_DATE.selected())
 			{
@@ -773,19 +576,9 @@ void clock_saisi()
 			lcd.print("/");
 			if (cpt_DATE.jour() < 10) lcd.print(0);
 			lcd.print(cpt_DATE.jour());
-		
-			// saisi
-			keypad.read();
-			cpt_DATE.run(keypad.key());
-			if (cpt_DATE.isSelect())
-			{
-				save_clock(cpt_CLOCK.index());
-				cpt_CLOCK.setSelect(false);
-			}
 			break;
 		
 		case CLOCK_HEURE:
-			// affichage
 			lcd.setCursor(0, 0);
 			if (cpt_HEURE.heure_select()) lcd.print("Heure");
 			else lcd.print("Minute");
@@ -795,15 +588,6 @@ void clock_saisi()
 			lcd.print(":");
 			if (cpt_HEURE.minute() < 10) lcd.print(0);
 			lcd.print(cpt_HEURE.minute());
-		
-			// saisi
-			keypad.read();
-			cpt_HEURE.run(keypad.key());
-			if (cpt_HEURE.isSelect())
-			{
-				save_clock(cpt_CLOCK.index());
-				cpt_CLOCK.setSelect(false);
-			}
 			break;
 		
 		default:
@@ -812,13 +596,224 @@ void clock_saisi()
 }
 
 // ### IHM ###
-void gestion_retro()
+void nav_menu(int key)
+{
+	// increment le bon compteur
+	if(cpt_MENU.isSelect() == false) 				// Menu principale
+	{
+		cpt_MENU.run(key); 								// increment
+		if (cpt_MENU.isSelect() && (cpt_MENU.index() == MENU_HOME)) cpt_MENU.setSelect(false);
+	}
+	else 															// Menu configurations
+	{
+		switch (cpt_MENU.index())
+		{		
+			case MENU_LIGHT:							// Menu Lumiere
+				if (cpt_LIGHT.isSelect() == false)
+				{
+					cpt_LIGHT.run(key); 					// increment
+					if (cpt_LIGHT.isSelect())
+					{
+						if ( cpt_LIGHT.index() == LIGHT_ENABLE)  // switch actif - inactif
+						{
+							lumiere.enable(!lumiere.isEnable());
+							lumiere.saveValue(EEPROM_LIGHT, cpt_LIGHT.index());
+							cpt_LIGHT.setSelect(false);
+						}
+						else if ( cpt_LIGHT.index() == LIGHT_RETURN) // retour arrière
+						{
+							cpt_LIGHT.setSelect(false);
+							cpt_LIGHT.setIndex(DAILY_ON);
+							cpt_MENU.setSelect(false);
+						}
+						else  									// prepare saisi Heure
+						{
+							cpt_HEURE.start(lumiere.getValue(cpt_LIGHT.index()));
+						}
+					}
+				}
+				else 												// Menu saisi Heure
+				{
+					cpt_HEURE.run(key);					// increment
+					if (cpt_HEURE.isSelect())				// sauvegarde parametre
+					{
+						lumiere.setValue(cpt_LIGHT.index(), cpt_HEURE.time());
+						lumiere.saveValue(EEPROM_LIGHT, cpt_LIGHT.index());
+						cpt_LIGHT.setSelect(false);
+					}
+				}
+				break;
+		
+			case MENU_PULVE:							// Menu Pulverisateur
+				if (cpt_PULVE.isSelect() == false)
+				{
+					cpt_PULVE.run(key); 					// increment
+					if (cpt_PULVE.isSelect())
+					{
+						if ( cpt_PULVE.index() == PULVE_ENABLE)  // switch actif - inactif
+						{
+							pulverisateur.enable(!pulverisateur.isEnable());
+							pulverisateur.saveValue(EEPROM_PULVE,cpt_PULVE.index());
+							cpt_PULVE.setSelect(false);
+						}
+						else if ( cpt_PULVE.index() == PULVE_RETURN) // retour arrière
+						{
+							cpt_PULVE.setSelect(false);
+							cpt_PULVE.setIndex(CYCLIC_DAY_ON);
+							cpt_MENU.setSelect(false);
+						}
+						else  									// prepare saisi Seconde
+						{
+							cpt_SECONDE.start(pulverisateur.getValue(cpt_PULVE.index()));
+						}
+					}
+				}
+				else 												// Menu saisi Seconde
+				{
+					cpt_SECONDE.run(key);				// increment
+					if (cpt_SECONDE.isSelect())			// sauvegarde parametre
+					{
+						pulverisateur.setValue(cpt_PULVE.index(), cpt_SECONDE.seconde());
+						pulverisateur.saveValue(EEPROM_PULVE, cpt_PULVE.index());
+						cpt_PULVE.setSelect(false);
+					}
+				}
+				break;
+		
+			case MENU_TAPIS:								// Menu Tapis
+				if (cpt_TAPIS.isSelect() == false)
+				{
+					cpt_TAPIS.run(key); 					// increment
+					if (cpt_TAPIS.isSelect())
+					{
+						if ( cpt_TAPIS.index() == TAPIS_ENABLE)  // switch actif - inactif
+						{
+							tapis.enable(!tapis.isEnable());
+							tapis.saveValue(EEPROM_TAPIS, cpt_TAPIS.index());
+							cpt_TAPIS.setSelect(false);
+						}
+						else if ( cpt_TAPIS.index() == TAPIS_RETURN) // retour arrière
+						{
+							cpt_TAPIS.setSelect(false);
+							cpt_TAPIS.setIndex(THERMOSTAT_DAY);
+							cpt_MENU.setSelect(false);
+						}
+						else										// prepare saisi Int
+						{
+							cpt_INT.start(tapis.getValue(cpt_TAPIS.index()));
+						}
+					}
+				}
+				else 												// Menu saisi Int
+				{
+					cpt_INT.run(key);					 	// increment
+					if (cpt_INT.isSelect())					// sauvegarde parametre
+					{
+						tapis.setValue(cpt_TAPIS.index(), cpt_INT.value());
+						tapis.saveValue(EEPROM_TAPIS, cpt_TAPIS.index());
+						cpt_TAPIS.setSelect(false);
+					}
+				}
+				break;
+		
+			case MENU_BRUMI:							// Menu Brumisateur
+				if (cpt_BRUMI.isSelect() == false)
+				{
+					cpt_BRUMI.run(key); 					// increment
+					if (cpt_BRUMI.isSelect())
+					{
+						if ( cpt_BRUMI.index() == BRUMI_ENABLE)  // switch actif - inactif
+						{
+							brumi.enable(!brumi.isEnable());
+							brumi.saveValue(EEPROM_BRUMI,cpt_BRUMI.index());
+							cpt_BRUMI.setSelect(false);
+						}
+						else if ( cpt_BRUMI.index() == BRUMI_RETURN) // retour arrière
+						{
+							cpt_BRUMI.setSelect(false);
+							cpt_BRUMI.setIndex(HYGRO_DAY_MIN);
+							cpt_MENU.setSelect(false);
+						}
+						else										// prepare saisi Int
+						{
+							cpt_INT.start(brumi.getValue(cpt_BRUMI.index()));
+						}
+					}
+				}
+				else 												// Menu saisi Int
+				{
+					cpt_INT.run(key); 						// increment
+					if (cpt_INT.isSelect())					// sauvegarde parametre
+					{
+						brumi.setValue(cpt_BRUMI.index(), cpt_INT.value());
+						brumi.saveValue(EEPROM_BRUMI,cpt_BRUMI.index());
+						cpt_BRUMI.setSelect(false);
+					}
+				}
+				break;
+		
+			case MENU_CLOCK:							// Menu Horloge
+				if (cpt_CLOCK.isSelect() == false)
+				{
+					cpt_CLOCK.run(key);					// increment
+					if (cpt_CLOCK.isSelect())
+					{
+						if (cpt_CLOCK.index() == CLOCK_DATE) // prepare saisi Date
+						{
+							cpt_DATE.start(now.year(), now.month(), now.day());
+						}
+						else if (cpt_CLOCK.index() == CLOCK_HEURE) // prepare saisi Heure
+						{
+							cpt_HEURE.start((now.hour() * 60) + now.minute());
+						}
+						else if ( cpt_CLOCK.index() == CLOCK_RETURN) // retour arrière
+						{
+							cpt_CLOCK.setSelect(false);
+							cpt_CLOCK.setIndex(CLOCK_DATE);
+							cpt_MENU.setSelect(false);
+						}
+					}
+				}
+				else 												// Menu saisi Clock
+				{
+					switch (cpt_CLOCK.index())
+					{
+						case CLOCK_DATE:				// Saisi Date
+							cpt_DATE.run(key);			// increment
+							if (cpt_DATE.isSelect())		// sauvegarde parametre
+							{
+								save_clock(cpt_CLOCK.index());
+								cpt_CLOCK.setSelect(false);
+							}
+							break;
+							
+						case CLOCK_HEURE:				// Saisi Heure
+							cpt_HEURE.run(key);			// increment
+							if (cpt_HEURE.isSelect())		// sauvegarde parametre
+							{
+								save_clock(cpt_CLOCK.index());
+								cpt_CLOCK.setSelect(false);
+							}
+							break;
+							
+						default:
+							break;
+					}
+				}
+				break;
+		
+			default:
+				break;
+		}
+	}
+}
+void gestion_retro(int key)
 {
 	// clear and refresh retro timer
-	if (keypad.key() != refresh_key)
+	if (key != refresh_key)
 	{
 		retro_start = now.unixtime();
-		refresh_key = keypad.key();
+		refresh_key = key;
 		lcd.clear();
 	}
 
@@ -841,12 +836,10 @@ void gestion_retro()
 		if(working)
 		{
 			analogWrite(RETRO_PIN, 128);
-			lcd.clear();
 		}
 		else
 		{
 			analogWrite(RETRO_PIN, 0);
-			lcd.clear();
 			cpt_MENU.setIndex(MENU_HOME);
 			cpt_LIGHT.setIndex(DAILY_ON);
 			cpt_LIGHT.setSelect(false);
@@ -859,15 +852,12 @@ void gestion_retro()
 			cpt_CLOCK.setIndex(CLOCK_DATE);
 			cpt_CLOCK.setSelect(false);
 		}
+		lcd.clear();
 		retro_on = working;
 	}  
 }
-void ihm()
+void afficher_lcd()
 {
-	// gestion retro eclairage
-	gestion_retro();
-	
-	// lcd keypad
 	switch (cpt_MENU.index())
 	{
 		case MENU_HOME:
@@ -908,6 +898,17 @@ void ihm()
 			break;
 	}
 }
+void ihm()
+{
+	keypad.read(); // SAISI
+	int key = keypad.key();
+	
+	nav_menu(key); // naviguation menu
+	
+	gestion_retro(key); // gestion retro eclairage
+	
+	afficher_lcd(); // AFFICHAGE
+}
 
 // ### MAIN ###
 void setup()
@@ -933,19 +934,20 @@ void setup()
 }
 void loop()
 {
+	mesurer_sondes();
+	
 	now = rtc.now();
 	int nowInMinutes = (now.hour() * 60) + now.minute();
 	
 	lumiere.run(nowInMinutes);
 	bool jour = lumiere.isWorking();
 	
-	pulverisateur.run(now.unixtime(), jour);
+	if (alerte == false) pulverisateur.run(now.unixtime(), jour);
+	else if (pulverisateur.isWorking()) pulverisateur.run(now.unixtime(), jour);
 	
-	if (alerte == false) tapis.run(temperature, jour);
+	tapis.run(temperature, jour);
 	
 	brumi.run(humA, jour);
 	
 	ihm();
-	
-	mesurer_sondes();
 }
