@@ -45,9 +45,9 @@
 #define DHT_SECOND		1
 #define SONAR_SECOND		1
 
-#define DHTTYPE			DHT11
+#define DHTTYPE		DHT11
 #define MAX_DISTANCE	100
-#define LVL_CRIT		20
+#define LVL_CRIT	20
 
 // CLOCK
 RTC_DS1307 rtc;
