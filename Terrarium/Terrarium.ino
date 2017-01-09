@@ -28,12 +28,12 @@
 #define ONE_WIRE_BUS	2
 #define DHT_PIN			3
 #define RETRO_PIN		10
-#define ECHO_PIN			11
+#define ECHO_PIN		11
 #define TRIGGER_PIN		12
 #define BRUMI_PIN		13
-#define LIGHT_PIN			15
-#define PULVE_PIN			16
-#define TAPIS_PIN			17
+#define LIGHT_PIN		15
+#define PULVE_PIN		16
+#define TAPIS_PIN		17
 
 #define EEPROM_LIGHT	0
 #define EEPROM_PULVE	5
@@ -42,12 +42,12 @@
 
 #define RETRO_SECOND_ON		15
 #define TEMPERATURE_SECOND	5
-#define DHT_SECOND					1
-#define SONAR_SECOND				1
+#define DHT_SECOND			1
+#define SONAR_SECOND		1
 
 #define DHTTYPE			DHT11
 #define MAX_DISTANCE	100
-#define LVL_CRIT			20
+#define LVL_CRIT		20
 
 // CLOCK
 RTC_DS1307 rtc;
