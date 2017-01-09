@@ -2,6 +2,9 @@ Terrarium
 ===================
 Contrôleur pour terrarium à base d'Arduino
 
+----------
+
+
 DailyTimer
 -------------
 Minuterie journalière avec chevauchement sur 2 jours.
@@ -65,6 +68,9 @@ loc		   | int  | Oui		 | Position de l'objet dans la mémoire EEPROM.
 Parameters | Type | Required | Description
 ---------- | ---- | -------- | -----------
 loc		   | int  | Oui		 | Position de l'objet dans la mémoire EEPROM.
+
+----------
+
 
 CyclicTimer
 -------------
