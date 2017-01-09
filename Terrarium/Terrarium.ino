@@ -24,16 +24,16 @@
 #include <CompteurSeconde.h>
 #include <CompteurInt.h>
 
-#define KEY_PIN			0
-#define ONE_WIRE_BUS		2
-#define DHT_PIN			3
-#define RETRO_PIN		10
-#define ECHO_PIN		11
-#define TRIGGER_PIN		12
-#define BRUMI_PIN		13
-#define LIGHT_PIN		15
-#define PULVE_PIN		16
-#define TAPIS_PIN		17
+#define KEY_PIN		0
+#define ONE_WIRE_BUS	2
+#define DHT_PIN		3
+#define RETRO_PIN	10
+#define ECHO_PIN	11
+#define TRIGGER_PIN	12
+#define BRUMI_PIN	13
+#define LIGHT_PIN	15
+#define PULVE_PIN	16
+#define TAPIS_PIN	17
 
 #define EEPROM_LIGHT	0
 #define EEPROM_PULVE	5
