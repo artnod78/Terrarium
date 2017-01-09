@@ -599,12 +599,12 @@ void clock_saisi()
 void nav_menu(int key)
 {
 	// increment le bon compteur
-	if(cpt_MENU.isSelect() == false) 				// Menu principale
+	if(cpt_MENU.isSelect() == false) 							// Menu principale
 	{
 		cpt_MENU.run(key); 								// increment
 		if (cpt_MENU.isSelect() && (cpt_MENU.index() == MENU_HOME)) cpt_MENU.setSelect(false);
 	}
-	else 															// Menu configurations
+	else 											// Menu configurations
 	{
 		switch (cpt_MENU.index())
 		{		
@@ -614,25 +614,25 @@ void nav_menu(int key)
 					cpt_LIGHT.run(key); 					// increment
 					if (cpt_LIGHT.isSelect())
 					{
-						if ( cpt_LIGHT.index() == LIGHT_ENABLE)  // switch actif - inactif
+						if ( cpt_LIGHT.index() == LIGHT_ENABLE)  	// switch actif - inactif
 						{
 							lumiere.enable(!lumiere.isEnable());
 							lumiere.saveValue(EEPROM_LIGHT, cpt_LIGHT.index());
 							cpt_LIGHT.setSelect(false);
 						}
-						else if ( cpt_LIGHT.index() == LIGHT_RETURN) // retour arrière
+						else if ( cpt_LIGHT.index() == LIGHT_RETURN) 	// retour arrière
 						{
 							cpt_LIGHT.setSelect(false);
 							cpt_LIGHT.setIndex(DAILY_ON);
 							cpt_MENU.setSelect(false);
 						}
-						else  									// prepare saisi Heure
+						else  						// prepare saisi Heure
 						{
 							cpt_HEURE.start(lumiere.getValue(cpt_LIGHT.index()));
 						}
 					}
 				}
-				else 												// Menu saisi Heure
+				else 								// Menu saisi Heure
 				{
 					cpt_HEURE.run(key);					// increment
 					if (cpt_HEURE.isSelect())				// sauvegarde parametre
@@ -650,28 +650,28 @@ void nav_menu(int key)
 					cpt_PULVE.run(key); 					// increment
 					if (cpt_PULVE.isSelect())
 					{
-						if ( cpt_PULVE.index() == PULVE_ENABLE)  // switch actif - inactif
+						if ( cpt_PULVE.index() == PULVE_ENABLE)  	// switch actif - inactif
 						{
 							pulverisateur.enable(!pulverisateur.isEnable());
 							pulverisateur.saveValue(EEPROM_PULVE,cpt_PULVE.index());
 							cpt_PULVE.setSelect(false);
 						}
-						else if ( cpt_PULVE.index() == PULVE_RETURN) // retour arrière
+						else if ( cpt_PULVE.index() == PULVE_RETURN) 	// retour arrière
 						{
 							cpt_PULVE.setSelect(false);
 							cpt_PULVE.setIndex(CYCLIC_DAY_ON);
 							cpt_MENU.setSelect(false);
 						}
-						else  									// prepare saisi Seconde
+						else  						// prepare saisi Seconde
 						{
 							cpt_SECONDE.start(pulverisateur.getValue(cpt_PULVE.index()));
 						}
 					}
 				}
-				else 												// Menu saisi Seconde
+				else 								// Menu saisi Seconde
 				{
-					cpt_SECONDE.run(key);				// increment
-					if (cpt_SECONDE.isSelect())			// sauvegarde parametre
+					cpt_SECONDE.run(key);					// increment
+					if (cpt_SECONDE.isSelect())				// sauvegarde parametre
 					{
 						pulverisateur.setValue(cpt_PULVE.index(), cpt_SECONDE.seconde());
 						pulverisateur.saveValue(EEPROM_PULVE, cpt_PULVE.index());
@@ -680,33 +680,33 @@ void nav_menu(int key)
 				}
 				break;
 		
-			case MENU_TAPIS:								// Menu Tapis
+			case MENU_TAPIS:							// Menu Tapis
 				if (cpt_TAPIS.isSelect() == false)
 				{
 					cpt_TAPIS.run(key); 					// increment
 					if (cpt_TAPIS.isSelect())
 					{
-						if ( cpt_TAPIS.index() == TAPIS_ENABLE)  // switch actif - inactif
+						if ( cpt_TAPIS.index() == TAPIS_ENABLE)  	// switch actif - inactif
 						{
 							tapis.enable(!tapis.isEnable());
 							tapis.saveValue(EEPROM_TAPIS, cpt_TAPIS.index());
 							cpt_TAPIS.setSelect(false);
 						}
-						else if ( cpt_TAPIS.index() == TAPIS_RETURN) // retour arrière
+						else if ( cpt_TAPIS.index() == TAPIS_RETURN) 	// retour arrière
 						{
 							cpt_TAPIS.setSelect(false);
 							cpt_TAPIS.setIndex(THERMOSTAT_DAY);
 							cpt_MENU.setSelect(false);
 						}
-						else										// prepare saisi Int
+						else						// prepare saisi Int
 						{
 							cpt_INT.start(tapis.getValue(cpt_TAPIS.index()));
 						}
 					}
 				}
-				else 												// Menu saisi Int
+				else 								// Menu saisi Int
 				{
-					cpt_INT.run(key);					 	// increment
+					cpt_INT.run(key);					// increment
 					if (cpt_INT.isSelect())					// sauvegarde parametre
 					{
 						tapis.setValue(cpt_TAPIS.index(), cpt_INT.value());
@@ -722,27 +722,27 @@ void nav_menu(int key)
 					cpt_BRUMI.run(key); 					// increment
 					if (cpt_BRUMI.isSelect())
 					{
-						if ( cpt_BRUMI.index() == BRUMI_ENABLE)  // switch actif - inactif
+						if ( cpt_BRUMI.index() == BRUMI_ENABLE)  	// switch actif - inactif
 						{
 							brumi.enable(!brumi.isEnable());
 							brumi.saveValue(EEPROM_BRUMI,cpt_BRUMI.index());
 							cpt_BRUMI.setSelect(false);
 						}
-						else if ( cpt_BRUMI.index() == BRUMI_RETURN) // retour arrière
+						else if ( cpt_BRUMI.index() == BRUMI_RETURN) 	// retour arrière
 						{
 							cpt_BRUMI.setSelect(false);
 							cpt_BRUMI.setIndex(HYGRO_DAY_MIN);
 							cpt_MENU.setSelect(false);
 						}
-						else										// prepare saisi Int
+						else						// prepare saisi Int
 						{
 							cpt_INT.start(brumi.getValue(cpt_BRUMI.index()));
 						}
 					}
 				}
-				else 												// Menu saisi Int
+				else 								// Menu saisi Int
 				{
-					cpt_INT.run(key); 						// increment
+					cpt_INT.run(key); 					// increment
 					if (cpt_INT.isSelect())					// sauvegarde parametre
 					{
 						brumi.setValue(cpt_BRUMI.index(), cpt_INT.value());
@@ -758,15 +758,15 @@ void nav_menu(int key)
 					cpt_CLOCK.run(key);					// increment
 					if (cpt_CLOCK.isSelect())
 					{
-						if (cpt_CLOCK.index() == CLOCK_DATE) // prepare saisi Date
+						if (cpt_CLOCK.index() == CLOCK_DATE) 		// prepare saisi Date
 						{
 							cpt_DATE.start(now.year(), now.month(), now.day());
 						}
-						else if (cpt_CLOCK.index() == CLOCK_HEURE) // prepare saisi Heure
+						else if (cpt_CLOCK.index() == CLOCK_HEURE) 	// prepare saisi Heure
 						{
 							cpt_HEURE.start((now.hour() * 60) + now.minute());
 						}
-						else if ( cpt_CLOCK.index() == CLOCK_RETURN) // retour arrière
+						else if ( cpt_CLOCK.index() == CLOCK_RETURN) 	// retour arrière
 						{
 							cpt_CLOCK.setSelect(false);
 							cpt_CLOCK.setIndex(CLOCK_DATE);
@@ -774,7 +774,7 @@ void nav_menu(int key)
 						}
 					}
 				}
-				else 												// Menu saisi Clock
+				else 								// Menu saisi Clock
 				{
 					switch (cpt_CLOCK.index())
 					{
