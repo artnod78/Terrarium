@@ -128,3 +128,6 @@ loc		   | int  | Oui		 | Position de l'objet dans la mémoire EEPROM.
 Parameters | Type | Required | Description
 ---------- | ---- | -------- | -----------
 loc		   | int  | Oui		 | Position de l'objet dans la mémoire EEPROM.
+
+----------
+
