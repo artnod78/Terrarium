@@ -25,7 +25,7 @@
 #include <CompteurInt.h>
 
 #define KEY_PIN			0
-#define ONE_WIRE_BUS	2
+#define ONE_WIRE_BUS		2
 #define DHT_PIN			3
 #define RETRO_PIN		10
 #define ECHO_PIN		11
@@ -42,7 +42,7 @@
 
 #define RETRO_SECOND_ON		15
 #define TEMPERATURE_SECOND	5
-#define DHT_SECOND			1
+#define DHT_SECOND		1
 #define SONAR_SECOND		1
 
 #define DHTTYPE			DHT11
