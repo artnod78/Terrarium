@@ -5,9 +5,10 @@
 #endif
 #include "CyclicTimer.h"
 
-CyclicTimer::CyclicTimer(int IO_Pin, bool invertedRelay)
+CyclicTimer::CyclicTimer(int IO_Pin, int ee_addr, bool invertedRelay)
 {
 	_IO_Pin			= IO_Pin;
+	_ee_addr		= ee_addr;
 	_isWorking     	= false;
 	_isEnable      	= false;
 	_lastChange	= 0;
@@ -15,23 +16,47 @@ CyclicTimer::CyclicTimer(int IO_Pin, bool invertedRelay)
 	pinMode(_IO_Pin,OUTPUT);
 }
 
+    
+unsigned long CyclicTimer::getValue(int type)
+{
+  return _data[type];
+}
+
 void CyclicTimer::setValue(int type,unsigned long sec)
 {
   _data[type] = sec;
 }
 
-void CyclicTimer::enable(bool value)
+void CyclicTimer::saveValue(int type)
 {
-	if(value != _isEnable)
+	int loc = _ee_addr + (sizeof(unsigned long) * type);
+	switch (type)
 	{
-		if(_isWorking)
-		{
-			_isWorking = false;
-			desactivateRelay();
-		}
-		_isEnable = value;
+		case CYCLIC_DAY_ON:
+			EEPROM.put(loc, _data[CYCLIC_DAY_ON]);
+			break;
+		
+		case CYCLIC_DAY_OFF:
+			EEPROM.put(loc, _data[CYCLIC_DAY_OFF]);
+			break;
+		
+		case CYCLIC_NIGHT_ON:
+			EEPROM.put(loc, _data[CYCLIC_NIGHT_ON]);
+			break;
+		
+		case CYCLIC_NIGHT_OFF:
+			EEPROM.put(loc, _data[CYCLIC_NIGHT_OFF]);
+			break;
+		
+		case CYCLIC_ENABLE:
+			EEPROM.write(loc, (_isEnable ? 1 : 0));
+			break;
+		
+		default:
+			break;
 	}
 }
+
 
 void CyclicTimer::run(unsigned long currentUnixTime, bool lightMode)
 {
@@ -61,15 +86,24 @@ void CyclicTimer::run(unsigned long currentUnixTime, bool lightMode)
 		}
 	}
 }
-    
-unsigned long CyclicTimer::getValue(int type)
-{
-  return _data[type];
-}
 
 bool CyclicTimer::isWorking(void)
 {
   return _isWorking;
+}
+
+
+void CyclicTimer::enable(bool value)
+{
+	if(value != _isEnable)
+	{
+		if(_isWorking)
+		{
+			_isWorking = false;
+			desactivateRelay();
+		}
+		_isEnable = value;
+	}
 }
 
 bool CyclicTimer::isEnable(void)
@@ -77,8 +111,25 @@ bool CyclicTimer::isEnable(void)
   return _isEnable;
 }
 
-void CyclicTimer::loadAll(int loc)
+
+int CyclicTimer::getEEPROM(void)
 {
+	return _ee_addr;
+}
+
+int CyclicTimer::getNextEEPROM(void)
+{
+	return _ee_addr + CYCLIC_EEPROM_LEN;
+}
+
+void CyclicTimer::setEEPROM(int addr)
+{
+	_ee_addr = addr;
+}
+
+void CyclicTimer::loadAll(void)
+{
+	int loc = _ee_addr;
 	EEPROM.get(loc, _data[CYCLIC_DAY_ON]);
 	loc += sizeof(unsigned long);
 	EEPROM.get(loc, _data[CYCLIC_DAY_OFF]);
@@ -90,8 +141,9 @@ void CyclicTimer::loadAll(int loc)
 	_isEnable = (EEPROM.read(loc) & 1);
 }
 
-void CyclicTimer::saveAll(int loc)
+void CyclicTimer::saveAll(void)
 {
+	int loc = _ee_addr;
 	EEPROM.put(loc, _data[CYCLIC_DAY_ON]);
 	loc += sizeof(unsigned long);
 	EEPROM.put(loc, _data[CYCLIC_DAY_OFF]);
@@ -103,35 +155,6 @@ void CyclicTimer::saveAll(int loc)
 	EEPROM.write(loc, (_isEnable ? 1 : 0));
 }
 
-void CyclicTimer::saveValue(int loc, int type)
-{
-	loc += sizeof(unsigned long) * type;
-	switch (type)
-	{
-		case CYCLIC_DAY_ON:
-			EEPROM.put(loc, _data[CYCLIC_DAY_ON]);
-			break;
-		
-		case CYCLIC_DAY_OFF:
-			EEPROM.put(loc, _data[CYCLIC_DAY_OFF]);
-			break;
-		
-		case CYCLIC_NIGHT_ON:
-			EEPROM.put(loc, _data[CYCLIC_NIGHT_ON]);
-			break;
-		
-		case CYCLIC_NIGHT_OFF:
-			EEPROM.put(loc, _data[CYCLIC_NIGHT_OFF]);
-			break;
-		
-		case CYCLIC_ENABLE:
-			EEPROM.write(loc, (_isEnable ? 1 : 0));
-			break;
-		
-		default:
-			break;
-	}
-}
 
 bool CyclicTimer::runCycle(unsigned long currentUnixTime, unsigned long timeON, unsigned long timeOFF)
 {

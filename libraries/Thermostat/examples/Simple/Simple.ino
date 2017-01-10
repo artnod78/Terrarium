@@ -1,27 +1,27 @@
 #include <Thermostat.h>
 
-#define TAPIS_PIN 12
+#define TAPIS_PIN 13
 
-Thermostat tapis(TAPIS_PIN); // declaration de la minuterie sur pin 10 de l'arduino
+Hygrostat brumi(TAPIS_PIN); // Declaration du thermostat sur la broche 10 de l'arduino
 
 void setup()
 {	
-	// definition de la temperature voulu
-	// param 1 choix de temporisation (DAY_TEMPERATURE,NIGHT_TEMPERATURE)
-	// param 2 = temperature
- 	tapis.setValue(THERMOSTAT_DAY, 26);
- 	tapis.setValue(THERMOSTAT_NIGHT, 21);
+	// definition des paramètres voulu
+ 	brumi.setValue(THERMO_DAY_MIN, 25);
+ 	brumi.setValue(THERMO_DAY_MAX, 27;
+ 	brumi.setValue(THERMO_NIGHT_MIN, 20);
+ 	brumi.setValue(THERMO_NIGHT_MAX, 22);
 
-	// active la minuterie
-	tapis.enable();
+	// active le thermostat
+	brumi.enable();
 }
 
 void loop()
 {
+	float currentValue = 23.45; // A remplacer une lecture d'une sonde
 	bool jour = true;
-	float current_temperature = 24.6; // A remplacer une lecture de sonde temperature
 	
-	// param 1 = temperature actuelle
+	// param 1 = valeur actuelle
 	// param 2 = jour ou nuit
-	tapis.run(current_temperature,jour); 
+	brumi.run(currentValue, jour); 
 }

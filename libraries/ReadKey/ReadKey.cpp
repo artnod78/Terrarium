@@ -8,18 +8,30 @@
 ReadKey::ReadKey(int IO_Pin)
 {
 	_IO_Pin = IO_Pin;
+	_isPress = false;
 	_key = btnNONE;
-	_val = 0;
+	_val = 1023;
 	pinMode(_IO_Pin, INPUT);
 }
 
 void ReadKey::read(void)
 {
 	int key = readKey();
+	bool ispress = false;
 	if (key != _key)
 	{
+		if(key != btnNONE)
+		{
+			ispress = true;
+		}
 		_key = key;
 	}
+	_isPress = ispress;
+}
+
+bool ReadKey::isPress(void)
+{
+	return _isPress;
 }
 
 int ReadKey::key(void)

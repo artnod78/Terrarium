@@ -5,52 +5,51 @@
 #endif
 #include "Compteur.h"
 
-Compteur::Compteur(int min, int max, int horizontal, int vertical)
+Compteur::Compteur(int min, int max)
 {
-	_isSelect = false;
 	_index = min;
+	_isSelect = false;
 	_min = min;
 	_max = max;
-	_horizontal = horizontal;
-	_vertical = vertical;
-	_last_key = 4;
 }
 
 void Compteur::run(int key)
 {
-	if(key != _last_key)
+	switch (key)
 	{
-		switch (key)
-		{
-			case 0:
-				_index += _horizontal;
-				if(_index > _max) _index = _min;
-				break;
-				
-			case 1:
-				_index += _vertical;
-				if(_index > _max) _index = _min;
-				break;
-				
-			case 2:
-				_index -= _horizontal;
-				if(_index < _min) _index = _max;
-				break;
-				
-			case 3:
-				_index -= _vertical;
-				if(_index < _min) _index = _max;
-				break;
-				
-			case 4:
-				_isSelect = true;
-				break;
+		case 0:
+			_index += 1;
+			if(_index > _max) _index = _min;
+			break;
 			
-			default:
-				break;
-		}
-		_last_key = key;
+		case 1:
+			_index += 1;
+			if(_index > _max) _index = _min;
+			break;
+			
+		case 2:
+			_index -= 1;
+			if(_index < _min) _index = _max;
+			break;
+			
+		case 3:
+			_index -= 1;
+			if(_index < _min) _index = _max;
+			break;
+			
+		case 4:
+			_isSelect = true;
+			break;
+		
+		default:
+			break;
 	}
+}
+
+
+int Compteur::index(void)
+{
+	return _index;
 }
 
 void Compteur::setIndex(int index)
@@ -58,17 +57,13 @@ void Compteur::setIndex(int index)
 	_index = index;
 }
 
-void Compteur::setSelect(bool value)
-{
-	_isSelect = value;
-}
-
-int Compteur::index(void)
-{
-	return _index;
-}
 
 bool Compteur::isSelect(void)
 {
 	return _isSelect;
+}
+
+void Compteur::setSelect(bool value)
+{
+	_isSelect = value;
 }

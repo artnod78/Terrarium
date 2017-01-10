@@ -14,7 +14,6 @@
 #include <DailyTimer.h>
 #include <CyclicTimer.h>
 #include <Thermostat.h>
-#include <Hygrostat.h>
 
 #include <ReadKey.h>
 
@@ -24,30 +23,30 @@
 #include <CompteurSeconde.h>
 #include <CompteurInt.h>
 
-#define KEY_PIN		0
+#define KEY_PIN			0
 #define ONE_WIRE_BUS	2
-#define DHT_PIN		3
-#define RETRO_PIN	10
-#define ECHO_PIN	11
-#define TRIGGER_PIN	12
-#define BRUMI_PIN	13
-#define LIGHT_PIN	15
-#define PULVE_PIN	16
-#define TAPIS_PIN	17
+#define DHT_PIN			3
+#define RETRO_PIN		10
+#define ECHO_PIN			11
+#define TRIGGER_PIN		12
+#define BRUMI_PIN		13
+#define LIGHT_PIN			15
+#define PULVE_PIN			16
+#define TAPIS_PIN			17
 
 #define EEPROM_LIGHT	0
 #define EEPROM_PULVE	5
 #define EEPROM_TAPIS	22
-#define EEPROM_BRUMI	31
+#define EEPROM_BRUMI	39
 
 #define RETRO_SECOND_ON		15
 #define TEMPERATURE_SECOND	5
-#define DHT_SECOND		1
-#define SONAR_SECOND		1
+#define DHT_SECOND					1
+#define SONAR_SECOND				1
 
-#define DHTTYPE		DHT11
+#define DHTTYPE			DHT11
 #define MAX_DISTANCE	100
-#define LVL_CRIT	20
+#define LVL_CRIT			20
 
 // CLOCK
 RTC_DS1307 rtc;
@@ -79,17 +78,17 @@ unsigned int reservoir = 0;
 bool alerte = false;
 
 // OBJECTS
-DailyTimer lumiere(LIGHT_PIN);
-CyclicTimer pulverisateur(PULVE_PIN);
-Thermostat tapis(TAPIS_PIN);
-Hygrostat brumi(BRUMI_PIN);
+DailyTimer lumiere(LIGHT_PIN, EEPROM_LIGHT);
+CyclicTimer pulverisateur(PULVE_PIN, EEPROM_PULVE);
+Thermostat tapis(TAPIS_PIN, EEPROM_TAPIS);
+Thermostat brumi(BRUMI_PIN, EEPROM_BRUMI);
 
 // COMPTEUR
 Compteur cpt_MENU(MENU_HOME,		MENU_CLOCK);
-Compteur cpt_LIGHT(DAILY_ON,		LIGHT_RETURN);
-Compteur cpt_PULVE(CYCLIC_DAY_ON,	PULVE_RETURN);
-Compteur cpt_TAPIS(THERMOSTAT_DAY,	TAPIS_RETURN);
-Compteur cpt_BRUMI(HYGRO_DAY_MIN,	BRUMI_RETURN);
+Compteur cpt_LIGHT(DAILY_ON,		DAILY_RETURN);
+Compteur cpt_PULVE(CYCLIC_DAY_ON,	CYCLIC_RETURN);
+Compteur cpt_TAPIS(THERMO_DAY_MIN,	THERMO_RETURN);
+Compteur cpt_BRUMI(THERMO_DAY_MIN,	THERMO_RETURN);
 Compteur cpt_CLOCK(CLOCK_DATE,		CLOCK_RETURN);
 
 CompteurDate cpt_DATE;
@@ -186,31 +185,28 @@ void lumiere_home()
 }
 void lumiere_conf()
 {
+	lcd.setCursor(0, 0);
 	switch (cpt_LIGHT.index())
 	{
 		case DAILY_ON:
-			lcd.setCursor(0, 0);
 			lcd.print("Configuration");
 			lcd.setCursor(0, 1);
 			lcd.print("Timer ON");
 			break;
 		
 		case DAILY_OFF:
-			lcd.setCursor(0, 0);
 			lcd.print("Configuration");
 			lcd.setCursor(0, 1);
 			lcd.print("Timer OFF");
 			break;
 		
-		case LIGHT_ENABLE:
-			lcd.setCursor(0, 0);
+		case DAILY_ENABLE:
 			lcd.print("Actif:");
 			lcd.setCursor(0, 1);
 			lcd.print(lumiere.isEnable() ? "Oui" : "Non");
 			break;
 		
-		case LIGHT_RETURN:
-			lcd.setCursor(0, 0);
+		case DAILY_RETURN:
 			lcd.print("Retour");
 			break;
 		
@@ -224,12 +220,12 @@ void lumiere_saisi()
 	switch (cpt_LIGHT.index())
 	{
 		case DAILY_ON:
-			if (cpt_HEURE.heure_select()) lcd.print("Heure ON");
+			if (cpt_HEURE.selected()) lcd.print("Heure ON");
 			else lcd.print("Minute ON");
 			break;
 		
 		case DAILY_OFF:
-			if (cpt_HEURE.heure_select()) lcd.print("Heure OFF");
+			if (cpt_HEURE.selected()) lcd.print("Heure OFF");
 			else lcd.print("Minute OFF");
 			break;
 		
@@ -254,44 +250,39 @@ void pulve_home()
 }
 void pulve_conf()
 {
+	lcd.setCursor(0, 0);
 	switch (cpt_PULVE.index()) {
 		case CYCLIC_DAY_ON:
-			lcd.setCursor(0, 0);
 			lcd.print("Configuration");
 			lcd.setCursor(0, 1);
 			lcd.print("Day Time ON");
 			break;
 		
 		case CYCLIC_DAY_OFF:
-			lcd.setCursor(0, 0);
 			lcd.print("Configuration");
 			lcd.setCursor(0, 1);
 			lcd.print("Day Time OFF");
 			break;
 		
 		case CYCLIC_NIGHT_ON:
-			lcd.setCursor(0, 0);
 			lcd.print("Configuration");
 			lcd.setCursor(0, 1);
 			lcd.print("Night Time ON");
 			break;
 		
 		case CYCLIC_NIGHT_OFF:
-			lcd.setCursor(0, 0);
 			lcd.print("Configuration");
 			lcd.setCursor(0, 1);
 			lcd.print("Night Time OFF");
 			break;
 		
-		case PULVE_ENABLE:
-			lcd.setCursor(0, 0);
+		case CYCLIC_ENABLE:
 			lcd.print("Actif:");
 			lcd.setCursor(0, 1);
 			lcd.print(pulverisateur.isEnable() ? "Oui" : "Non");
 			break;
 		
-		case PULVE_RETURN:
-			lcd.setCursor(0, 0);
+		case CYCLIC_RETURN:
 			lcd.print("Retour");
 			break;
 			
@@ -303,24 +294,21 @@ void pulve_saisi()
 {
 	unsigned int int_val = cpt_SECONDE.seconde();
 	int increment = cpt_SECONDE.increment();
+	lcd.setCursor(0, 0);
 	switch (cpt_PULVE.index()) {
 		case CYCLIC_DAY_ON:
-			lcd.setCursor(0, 0);
 			lcd.print("Day Time ON");
 			break;
 		
 		case CYCLIC_DAY_OFF:
-			lcd.setCursor(0, 0);
 			lcd.print("Day Time OFF");
 			break;
 		
 		case CYCLIC_NIGHT_ON:
-			lcd.setCursor(0, 0);
 			lcd.print("Night Time ON");
 			break;
 		
 		case CYCLIC_NIGHT_OFF:
-			lcd.setCursor(0, 0);
 			lcd.print("Night Time OFF");
 			break;
 			
@@ -349,31 +337,40 @@ void tapis_home()
 }
 void tapis_conf()
 {
-	switch (cpt_TAPIS.index()) 
+	lcd.setCursor(0, 0);
+	switch (cpt_TAPIS.index())
 	{
-		case THERMOSTAT_DAY:
-			lcd.setCursor(0, 0);
+		case THERMO_DAY_MIN:
 			lcd.print("Configuration");
 			lcd.setCursor(0, 1);
-			lcd.print("Temperature Jour");
+			lcd.print("Temp Min Jour");
 			break;
 		
-		case THERMOSTAT_NIGHT:
-			lcd.setCursor(0, 0);
+		case THERMO_DAY_MAX:
 			lcd.print("Configuration");
 			lcd.setCursor(0, 1);
-			lcd.print("Temperature Nuit");
+			lcd.print("Temp Max Jour");
 			break;
 		
-		case TAPIS_ENABLE:
-			lcd.setCursor(0, 0);
+		case THERMO_NIGHT_MIN:
+			lcd.print("Configuration");
+			lcd.setCursor(0, 1);
+			lcd.print("Temp Min Nuit");
+			break;
+		
+		case THERMO_NIGHT_MAX:
+			lcd.print("Configuration");
+			lcd.setCursor(0, 1);
+			lcd.print("Temp Max Nuit");
+			break;
+		
+		case THERMO_ENABLE:
 			lcd.print("Actif:");
 			lcd.setCursor(0, 1);
 			lcd.print(tapis.isEnable() ? "Oui" : "Non");
 			break;
 		
-		case TAPIS_RETURN:
-			lcd.setCursor(0, 0);
+		case THERMO_RETURN:
 			lcd.print("Retour");
 			break;
 		
@@ -383,16 +380,23 @@ void tapis_conf()
 }
 void tapis_saisi()
 {
+	lcd.setCursor(0, 0);
 	switch (cpt_TAPIS.index())
 	{
-		case THERMOSTAT_DAY:
-			lcd.setCursor(0, 0);
-			lcd.print("Temperature Jour");
+		case THERMO_DAY_MIN:
+			lcd.print("Temp Min Jour");
 			break;
 		
-		case THERMOSTAT_NIGHT:
-			lcd.setCursor(0, 0);
-			lcd.print("Temperature Nuit");
+		case THERMO_DAY_MAX:
+			lcd.print("Temp Max Jour");
+			break;
+		
+		case THERMO_NIGHT_MIN:
+			lcd.print("Temp Min Nuit");
+			break;
+		
+		case THERMO_NIGHT_MAX:
+			lcd.print("Temp Max Nuit");
 			break;
 		
 		default:
@@ -411,49 +415,44 @@ void brumi_home()
 	lcd.setCursor(0, 0);
 	lcd.print("Configurer");
 	lcd.setCursor(0, 1);
-	lcd.print("Brumisateur");
+	lcd.print("Hygrostat Brumi");
 }
 void brumi_conf()
 {
+	lcd.setCursor(0, 0);
 	switch (cpt_BRUMI.index())
 	{
-		case HYGRO_DAY_MIN:
-			lcd.setCursor(0, 0);
+		case THERMO_DAY_MIN:
 			lcd.print("Configuration");
 			lcd.setCursor(0, 1);
 			lcd.print("Hygro Min Jour");
 			break;
 		
-		case HYGRO_DAY_MAX:
-			lcd.setCursor(0, 0);
+		case THERMO_DAY_MAX:
 			lcd.print("Configuration");
 			lcd.setCursor(0, 1);
 			lcd.print("Hygro Max Jour");
 			break;
 		
-		case HYGRO_NIGHT_MIN:
-			lcd.setCursor(0, 0);
+		case THERMO_NIGHT_MIN:
 			lcd.print("Configuration");
 			lcd.setCursor(0, 1);
 			lcd.print("Hygro Min Nuit");
 			break;
 		
-		case HYGRO_NIGHT_MAX:
-			lcd.setCursor(0, 0);
+		case THERMO_NIGHT_MAX:
 			lcd.print("Configuration");
 			lcd.setCursor(0, 1);
 			lcd.print("Hygro Max Nuit");
 			break;
 		
-		case BRUMI_ENABLE:
-			lcd.setCursor(0, 0);
+		case THERMO_ENABLE:
 			lcd.print("Actif:");
 			lcd.setCursor(0, 1);
 			lcd.print(brumi.isEnable() ? "Oui" : "Non");
 			break;
 		
-		case BRUMI_RETURN:
-			lcd.setCursor(0, 0);
+		case THERMO_RETURN:
 			lcd.print("Retour");
 			break;
 		
@@ -463,25 +462,22 @@ void brumi_conf()
 }
 void brumi_saisi()
 {
+	lcd.setCursor(0, 0);
 	switch (cpt_BRUMI.index())
 	{
-		case HYGRO_DAY_MIN:
-			lcd.setCursor(0, 0);
+		case THERMO_DAY_MIN:
 			lcd.print("Hygro Min Jour");
 			break;
 		
-		case HYGRO_DAY_MAX:
-			lcd.setCursor(0, 0);
+		case THERMO_DAY_MAX:
 			lcd.print("Hygro Max Jour");
 			break;
 		
-		case HYGRO_NIGHT_MIN:
-			lcd.setCursor(0, 0);
+		case THERMO_NIGHT_MIN:
 			lcd.print("Hygro Min Nuit");
 			break;
 		
-		case HYGRO_NIGHT_MAX:
-			lcd.setCursor(0, 0);
+		case THERMO_NIGHT_MAX:
 			lcd.print("Hygro Max Nuit");
 			break;
 		
@@ -580,7 +576,7 @@ void clock_saisi()
 		
 		case CLOCK_HEURE:
 			lcd.setCursor(0, 0);
-			if (cpt_HEURE.heure_select()) lcd.print("Heure");
+			if (cpt_HEURE.selected()) lcd.print("Heure");
 			else lcd.print("Minute");
 			lcd.setCursor(0, 1);
 			if (cpt_HEURE.heure() < 10) lcd.print(0);
@@ -599,12 +595,12 @@ void clock_saisi()
 void nav_menu(int key)
 {
 	// increment le bon compteur
-	if(cpt_MENU.isSelect() == false) 							// Menu principale
+	if(cpt_MENU.isSelect() == false) 				// Menu principale
 	{
 		cpt_MENU.run(key); 								// increment
 		if (cpt_MENU.isSelect() && (cpt_MENU.index() == MENU_HOME)) cpt_MENU.setSelect(false);
 	}
-	else 											// Menu configurations
+	else 															// Menu configurations
 	{
 		switch (cpt_MENU.index())
 		{		
@@ -614,31 +610,34 @@ void nav_menu(int key)
 					cpt_LIGHT.run(key); 					// increment
 					if (cpt_LIGHT.isSelect())
 					{
-						if ( cpt_LIGHT.index() == LIGHT_ENABLE)  	// switch actif - inactif
+						if ( cpt_LIGHT.index() == DAILY_ENABLE)  // switch actif - inactif
 						{
 							lumiere.enable(!lumiere.isEnable());
-							lumiere.saveValue(EEPROM_LIGHT, cpt_LIGHT.index());
+							lumiere.saveValue(cpt_LIGHT.index());
 							cpt_LIGHT.setSelect(false);
 						}
-						else if ( cpt_LIGHT.index() == LIGHT_RETURN) 	// retour arrière
+						else if ( cpt_LIGHT.index() == DAILY_RETURN) // retour arrière
 						{
 							cpt_LIGHT.setSelect(false);
 							cpt_LIGHT.setIndex(DAILY_ON);
 							cpt_MENU.setSelect(false);
 						}
-						else  						// prepare saisi Heure
+						else  									// prepare saisi Heure
 						{
 							cpt_HEURE.start(lumiere.getValue(cpt_LIGHT.index()));
 						}
 					}
 				}
-				else 								// Menu saisi Heure
+				else 												// Menu saisi Heure
 				{
 					cpt_HEURE.run(key);					// increment
 					if (cpt_HEURE.isSelect())				// sauvegarde parametre
 					{
-						lumiere.setValue(cpt_LIGHT.index(), cpt_HEURE.time());
-						lumiere.saveValue(EEPROM_LIGHT, cpt_LIGHT.index());
+						if(cpt_HEURE.time() != lumiere.getValue(cpt_LIGHT.index()) )if(cpt_HEURE.time() != lumiere.getValue(cpt_LIGHT.index()) )
+						{
+							lumiere.setValue(cpt_LIGHT.index(), cpt_HEURE.time());
+							lumiere.saveValue(cpt_LIGHT.index());
+						}
 						cpt_LIGHT.setSelect(false);
 					}
 				}
@@ -650,67 +649,73 @@ void nav_menu(int key)
 					cpt_PULVE.run(key); 					// increment
 					if (cpt_PULVE.isSelect())
 					{
-						if ( cpt_PULVE.index() == PULVE_ENABLE)  	// switch actif - inactif
+						if ( cpt_PULVE.index() == CYCLIC_ENABLE)  // switch actif - inactif
 						{
 							pulverisateur.enable(!pulverisateur.isEnable());
-							pulverisateur.saveValue(EEPROM_PULVE,cpt_PULVE.index());
+							pulverisateur.saveValue(cpt_PULVE.index());
 							cpt_PULVE.setSelect(false);
 						}
-						else if ( cpt_PULVE.index() == PULVE_RETURN) 	// retour arrière
+						else if ( cpt_PULVE.index() == CYCLIC_RETURN) // retour arrière
 						{
 							cpt_PULVE.setSelect(false);
 							cpt_PULVE.setIndex(CYCLIC_DAY_ON);
 							cpt_MENU.setSelect(false);
 						}
-						else  						// prepare saisi Seconde
+						else  									// prepare saisi Seconde
 						{
 							cpt_SECONDE.start(pulverisateur.getValue(cpt_PULVE.index()));
 						}
 					}
 				}
-				else 								// Menu saisi Seconde
+				else 												// Menu saisi Seconde
 				{
-					cpt_SECONDE.run(key);					// increment
-					if (cpt_SECONDE.isSelect())				// sauvegarde parametre
+					cpt_SECONDE.run(key);				// increment
+					if (cpt_SECONDE.isSelect())			// sauvegarde parametre
 					{
-						pulverisateur.setValue(cpt_PULVE.index(), cpt_SECONDE.seconde());
-						pulverisateur.saveValue(EEPROM_PULVE, cpt_PULVE.index());
+						if(cpt_SECONDE.seconde() != pulverisateur.getValue(cpt_PULVE.index()) )
+						{
+							pulverisateur.setValue(cpt_PULVE.index(), cpt_SECONDE.seconde());
+							pulverisateur.saveValue(cpt_PULVE.index());
+						}
 						cpt_PULVE.setSelect(false);
 					}
 				}
 				break;
 		
-			case MENU_TAPIS:							// Menu Tapis
+			case MENU_TAPIS:								// Menu Tapis
 				if (cpt_TAPIS.isSelect() == false)
 				{
 					cpt_TAPIS.run(key); 					// increment
 					if (cpt_TAPIS.isSelect())
 					{
-						if ( cpt_TAPIS.index() == TAPIS_ENABLE)  	// switch actif - inactif
+						if ( cpt_TAPIS.index() == THERMO_ENABLE)  // switch actif - inactif
 						{
 							tapis.enable(!tapis.isEnable());
-							tapis.saveValue(EEPROM_TAPIS, cpt_TAPIS.index());
+							tapis.saveValue(cpt_TAPIS.index());
 							cpt_TAPIS.setSelect(false);
 						}
-						else if ( cpt_TAPIS.index() == TAPIS_RETURN) 	// retour arrière
+						else if ( cpt_TAPIS.index() == THERMO_RETURN) // retour arrière
 						{
 							cpt_TAPIS.setSelect(false);
-							cpt_TAPIS.setIndex(THERMOSTAT_DAY);
+							cpt_TAPIS.setIndex(THERMO_DAY_MIN);
 							cpt_MENU.setSelect(false);
 						}
-						else						// prepare saisi Int
+						else										// prepare saisi Int
 						{
 							cpt_INT.start(tapis.getValue(cpt_TAPIS.index()));
 						}
 					}
 				}
-				else 								// Menu saisi Int
+				else 												// Menu saisi Int
 				{
-					cpt_INT.run(key);					// increment
+					cpt_INT.run(key);					 	// increment
 					if (cpt_INT.isSelect())					// sauvegarde parametre
 					{
-						tapis.setValue(cpt_TAPIS.index(), cpt_INT.value());
-						tapis.saveValue(EEPROM_TAPIS, cpt_TAPIS.index());
+						if(cpt_INT.value() != tapis.getValue(cpt_TAPIS.index()) )
+						{
+							tapis.setValue(cpt_TAPIS.index(), cpt_INT.value());
+							tapis.saveValue(cpt_TAPIS.index());
+						}
 						cpt_TAPIS.setSelect(false);
 					}
 				}
@@ -722,31 +727,34 @@ void nav_menu(int key)
 					cpt_BRUMI.run(key); 					// increment
 					if (cpt_BRUMI.isSelect())
 					{
-						if ( cpt_BRUMI.index() == BRUMI_ENABLE)  	// switch actif - inactif
+						if ( cpt_BRUMI.index() == THERMO_ENABLE)  // switch actif - inactif
 						{
 							brumi.enable(!brumi.isEnable());
-							brumi.saveValue(EEPROM_BRUMI,cpt_BRUMI.index());
+							brumi.saveValue(cpt_BRUMI.index());
 							cpt_BRUMI.setSelect(false);
 						}
-						else if ( cpt_BRUMI.index() == BRUMI_RETURN) 	// retour arrière
+						else if ( cpt_BRUMI.index() == THERMO_RETURN) // retour arrière
 						{
 							cpt_BRUMI.setSelect(false);
-							cpt_BRUMI.setIndex(HYGRO_DAY_MIN);
+							cpt_BRUMI.setIndex(THERMO_DAY_MIN);
 							cpt_MENU.setSelect(false);
 						}
-						else						// prepare saisi Int
+						else										// prepare saisi Int
 						{
 							cpt_INT.start(brumi.getValue(cpt_BRUMI.index()));
 						}
 					}
 				}
-				else 								// Menu saisi Int
+				else 												// Menu saisi Int
 				{
-					cpt_INT.run(key); 					// increment
+					cpt_INT.run(key); 						// increment
 					if (cpt_INT.isSelect())					// sauvegarde parametre
 					{
-						brumi.setValue(cpt_BRUMI.index(), cpt_INT.value());
-						brumi.saveValue(EEPROM_BRUMI,cpt_BRUMI.index());
+						if(cpt_INT.value() != brumi.getValue(cpt_BRUMI.index()) )
+						{
+							brumi.setValue(cpt_BRUMI.index(), cpt_INT.value());
+							brumi.saveValue(cpt_BRUMI.index());
+						}
 						cpt_BRUMI.setSelect(false);
 					}
 				}
@@ -758,15 +766,15 @@ void nav_menu(int key)
 					cpt_CLOCK.run(key);					// increment
 					if (cpt_CLOCK.isSelect())
 					{
-						if (cpt_CLOCK.index() == CLOCK_DATE) 		// prepare saisi Date
+						if (cpt_CLOCK.index() == CLOCK_DATE) // prepare saisi Date
 						{
 							cpt_DATE.start(now.year(), now.month(), now.day());
 						}
-						else if (cpt_CLOCK.index() == CLOCK_HEURE) 	// prepare saisi Heure
+						else if (cpt_CLOCK.index() == CLOCK_HEURE) // prepare saisi Heure
 						{
 							cpt_HEURE.start((now.hour() * 60) + now.minute());
 						}
-						else if ( cpt_CLOCK.index() == CLOCK_RETURN) 	// retour arrière
+						else if ( cpt_CLOCK.index() == CLOCK_RETURN) // retour arrière
 						{
 							cpt_CLOCK.setSelect(false);
 							cpt_CLOCK.setIndex(CLOCK_DATE);
@@ -774,7 +782,7 @@ void nav_menu(int key)
 						}
 					}
 				}
-				else 								// Menu saisi Clock
+				else 												// Menu saisi Clock
 				{
 					switch (cpt_CLOCK.index())
 					{
@@ -845,9 +853,9 @@ void gestion_retro(int key)
 			cpt_LIGHT.setSelect(false);
 			cpt_PULVE.setIndex(CYCLIC_DAY_ON);
 			cpt_PULVE.setSelect(false);
-			cpt_TAPIS.setIndex(THERMOSTAT_DAY);
+			cpt_TAPIS.setIndex(THERMO_DAY_MIN);
 			cpt_TAPIS.setSelect(false);
-			cpt_BRUMI.setIndex(HYGRO_DAY_MIN);
+			cpt_BRUMI.setIndex(THERMO_DAY_MIN);
 			cpt_BRUMI.setSelect(false);
 			cpt_CLOCK.setIndex(CLOCK_DATE);
 			cpt_CLOCK.setSelect(false);
@@ -902,8 +910,10 @@ void ihm()
 {
 	keypad.read(); // SAISI
 	int key = keypad.key();
-	
-	nav_menu(key); // naviguation menu
+	if(keypad.isPress())
+	{
+		nav_menu(key); // naviguation menu
+	}
 	
 	gestion_retro(key); // gestion retro eclairage
 	
@@ -927,10 +937,10 @@ void setup()
 
   dht.begin();
 
-  lumiere.loadAll(EEPROM_LIGHT);
-  pulverisateur.loadAll(EEPROM_PULVE);
-  tapis.loadAll(EEPROM_TAPIS);
-  brumi.loadAll(EEPROM_BRUMI);
+  lumiere.loadAll();
+  pulverisateur.loadAll();
+  tapis.loadAll();
+  brumi.loadAll();
 }
 void loop()
 {

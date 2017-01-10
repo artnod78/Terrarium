@@ -5,14 +5,21 @@
 #endif
 #include "DailyTimer.h"
 
-DailyTimer::DailyTimer(int IO_Pin, bool invertedRelay)
+DailyTimer::DailyTimer(int IO_Pin, int ee_addr, bool invertedRelay)
 {
 	_IO_Pin			= IO_Pin;
+	_ee_addr		= ee_addr;
 	_isWorking		= false;
 	_isEnable		= false;
 	_invertedRelay	= invertedRelay;
 	pinMode(_IO_Pin,OUTPUT);
 	digitalWrite(_IO_Pin,LOW);
+}
+
+
+int DailyTimer::getValue(int type)
+{
+	return _data[type];
 }
 
 void DailyTimer::setValue(int type, int minute)
@@ -25,70 +32,9 @@ void DailyTimer::setValue(int type, int HH, int MM)
 	_data[type] = (HH*60)+MM;
 }
 
-void DailyTimer::enable(bool value)
+void DailyTimer::saveValue(int type)
 {
-	if(value != _isEnable)
-	{
-		if(_isWorking)
-		{
-			_isWorking = false;
-			desactivateRelay();
-		}
-		_isEnable = value;
-	}
-}
-
-void DailyTimer::run(int currentTime)
-{
-	if(_isEnable)
-	{		
-		bool new_state = runCycle(currentTime, _data[DAILY_ON], _data[DAILY_OFF]);
-
-		if(new_state != _isWorking)
-		{
-			if(new_state) activateRelay();
-			else desactivateRelay();
-			_isWorking = new_state;
-		}
-	}
-}
-
-int DailyTimer::getValue(int type)
-{
-	return _data[type];
-}
-
-bool DailyTimer::isWorking(void)
-{
-	return _isWorking;
-}
-
-bool DailyTimer::isEnable(void)
-{
-	return _isEnable;
-}
-
-void DailyTimer::loadAll(int loc)
-{
-	EEPROM.get(loc, _data[DAILY_ON]);
-	loc += sizeof(int);
-	EEPROM.get(loc, _data[DAILY_OFF]);
-	loc += sizeof(int);
-	_isEnable = EEPROM.read(loc) & 1;
-}
-
-void DailyTimer::saveAll(int loc)
-{
-	EEPROM.put(loc, _data[DAILY_ON]);
-	loc += sizeof(int);
-	EEPROM.put(loc, _data[DAILY_OFF]);
-	loc += sizeof(int);
-	EEPROM.write(loc, (_isEnable ? 1 : 0));
-}
-
-void DailyTimer::saveValue(int loc, int type)
-{
-	loc += sizeof(int) * type;
+	int loc = _ee_addr + (sizeof(int) * type);
 	switch (type)
 	{
 		case DAILY_ON:
@@ -107,6 +53,83 @@ void DailyTimer::saveValue(int loc, int type)
 			break;
 	}
 }
+
+
+void DailyTimer::run(int currentTime)
+{
+	if(_isEnable)
+	{		
+		bool new_state = runCycle(currentTime, _data[DAILY_ON], _data[DAILY_OFF]);
+
+		if(new_state != _isWorking)
+		{
+			if(new_state) activateRelay();
+			else desactivateRelay();
+			_isWorking = new_state;
+		}
+	}
+}
+
+bool DailyTimer::isWorking(void)
+{
+	return _isWorking;
+}
+
+
+void DailyTimer::enable(bool value)
+{
+	if(value != _isEnable)
+	{
+		if(_isWorking)
+		{
+			_isWorking = false;
+			desactivateRelay();
+		}
+		_isEnable = value;
+	}
+}
+
+bool DailyTimer::isEnable(void)
+{
+	return _isEnable;
+}
+
+
+int DailyTimer::getEEPROM(void)
+{
+	return _ee_addr;
+}
+
+int DailyTimer::getNextEEPROM(void)
+{
+	return _ee_addr + DAILY_EEPROM_LEN;
+}
+
+void DailyTimer::setEEPROM(int addr)
+{
+	_ee_addr = addr;
+}
+
+void DailyTimer::loadAll(void)
+{
+	int loc = _ee_addr;
+	EEPROM.get(loc, _data[DAILY_ON]);
+	loc += sizeof(int);
+	EEPROM.get(loc, _data[DAILY_OFF]);
+	loc += sizeof(int);
+	_isEnable = EEPROM.read(loc) & 1;
+}
+
+void DailyTimer::saveAll(void)
+{
+	int loc = _ee_addr;
+	EEPROM.put(loc, _data[DAILY_ON]);
+	loc += sizeof(int);
+	EEPROM.put(loc, _data[DAILY_OFF]);
+	loc += sizeof(int);
+	EEPROM.write(loc, (_isEnable ? 1 : 0));
+}
+
 
 bool DailyTimer::runCycle(int now, int start, int stop)
 {

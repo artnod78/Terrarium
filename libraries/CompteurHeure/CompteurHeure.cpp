@@ -10,8 +10,7 @@ CompteurHeure::CompteurHeure(int time)
 	_heure = (int)time / 60;
 	_minute = (int)time % 60;
 	_isSelect = false;
-	_heure_select = true;
-	_last_key = 4;
+	_selected = true;
 }
 
 void CompteurHeure::start(int time)
@@ -19,63 +18,55 @@ void CompteurHeure::start(int time)
 	_heure = (int)time / 60;
 	_minute = (int)time % 60;
 	_isSelect = false;
-	_heure_select = true;
-	_last_key = 4;
+	_selected = true;
 }
+
 
 void CompteurHeure::run(int key)
 {
-	if(key != _last_key)
+	switch (key)
 	{
-		switch (key)
-		{
-			case 0:
-				if(_heure_select) _heure_select = false;
-				else _heure_select = true;
-				break;
-				
-			case 1:
-				if(_heure_select)
-				{
-					if(++_heure > 23) _heure = 0;
-				}
-				else
-				{
-					if(++_minute > 59) _minute = 0;
-				}
-				break;
-				
-			case 2:
-				if(_heure_select)
-				{
-					if(--_heure < 0) _heure = 23;
-				}
-				else
-				{
-					if(--_minute < 0 ) _minute = 59;
-				}
-				break;
-				
-			case 3:
-				if(_heure_select) _heure_select = false;
-				else _heure_select = true;
-				break;
-				
-			case 4:
-				_isSelect = true;
-				break;
-				
-			default:
-				break;
-		}
-		_last_key = key;
+		case 0:
+			if(_selected) _selected = false;
+			else _selected = true;
+			break;
+			
+		case 1:
+			if(_selected)
+			{
+				if(++_heure > 23) _heure = 0;
+			}
+			else
+			{
+				if(++_minute > 59) _minute = 0;
+			}
+			break;
+			
+		case 2:
+			if(_selected)
+			{
+				if(--_heure < 0) _heure = 23;
+			}
+			else
+			{
+				if(--_minute < 0 ) _minute = 59;
+			}
+			break;
+			
+		case 3:
+			if(_selected) _selected = false;
+			else _selected = true;
+			break;
+			
+		case 4:
+			_isSelect = true;
+			break;
+			
+		default:
+			break;
 	}
 }
 
-bool CompteurHeure::isSelect(void)
-{
-	return _isSelect;
-}
 
 int CompteurHeure::time(void)
 {
@@ -92,7 +83,13 @@ int CompteurHeure::minute(void)
 	return _minute;
 }
 
-bool CompteurHeure::heure_select(void)
+bool CompteurHeure::isSelect(void)
 {
-	return _heure_select;
+	return _isSelect;
+}
+
+
+bool CompteurHeure::selected(void)
+{
+	return _selected;
 }
