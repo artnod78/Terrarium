@@ -10,7 +10,7 @@ Contrôleur pour terrarium à base d'Arduino
 * Créer les menu pour vider l'EEPROM.
 * Compléter la documentation.
 
-### Patch Note:
+### Patch Note
 #### 2017/01/10 v0.2
 * Fusionner les librairies Thermostat et Hygrostat pour en faire qu'une.
 * Limiter les sauvegardes dans l'EEPROM dans le cas où la nouvelle valeur et identique à l'ancienne.
