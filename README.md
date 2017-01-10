@@ -4,11 +4,15 @@ Contrôleur pour terrarium à base d'Arduino
 ### Documentations
 * [Wiki](https://github.com/artnod78/Terrarium/wiki)
 
+-------------
+
 ### TODO List
 * Créer les menu pour la saisi du niveau d'eau critique dans le réservoir.
 * Créer les menu pour l'intensité et la durée du rétro éclairage.
 * Créer les menu pour vider l'EEPROM.
 * Compléter la documentation.
+
+-------------
 
 ### Patch Note
 #### 2017/01/10 v0.2
