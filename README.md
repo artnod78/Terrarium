@@ -23,7 +23,7 @@ Contrôleur pour terrarium à base d'Arduino
 * Limiter les sauvegardes dans l'EEPROM dans le cas où la nouvelle valeur et identique à l'ancienne.
 * Configurer l'adresse EEPROM pour les objets lors de sa déclaration (au lieu de le spécifier a chaque fois lors des sauvegarde et chargement).
 * Quelques modifications dans les compteurs.
-* Mise à jour la doc existante.
+* Mise à jour doc existante.
 
 #### 2016/../.. v0.1
 * Start
