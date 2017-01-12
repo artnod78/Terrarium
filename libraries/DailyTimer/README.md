@@ -2,8 +2,8 @@
 Minuterie journalière avec chevauchement sur 2 jours.
 
 ## Constantes
- * `TIMER_ON` = 0
- * `TIMER_OFF` = 1
+ * `DAILY_ON` = 0
+ * `DAILY_OFF` = 1
  * `TIMER_ENABLE` = 2
  * `DAILY_EEPROM_LEN`  = 5
 
@@ -42,7 +42,7 @@ Renvoie le paramètre souhaité sous la fourme d'un entier, représentant un nom
 
 Paramètres | Type | Requis | Description
 ---------- | ---- | ------ | -----------
-type	   | int  | Oui	   | Utiliser les constantes `TIMER_ON` et `TIMER_OFF`.
+type	   | int  | Oui	   | Utiliser les constantes `DAILY_ON` et `DAILY_OFF`.
 
 
 -------------
@@ -52,7 +52,7 @@ Permet de configurer un paramètre.
 
 Paramètres | Type | Requis | Description
 ---------- | ---- | ------ | -----------
-type	   | int  | Oui	   | Utiliser les constantes `TIMER_ON` et `TIMER_OFF`.
+type	   | int  | Oui	   | Utiliser les constantes `DAILY_ON` et `DAILY_OFF`.
 minute	   | int  | Oui	   | Nombre de minute depuis minuit. Exemple pour *10:27* `minute = (10*60) + 27`
 
 
@@ -63,7 +63,7 @@ Permet de configurer un paramètre.
 
 Paramètres | Type | Requis | Description
 ---------- | ---- | ------ | -----------
-type	   | int  | Oui	   | Utiliser les constantes `TIMER_ON` et `TIMER_OFF`.
+type	   | int  | Oui	   | Utiliser les constantes `DAILY_ON` et `DAILY_OFF`.
 HH	   	   | int  | Oui	   | Heure. Exemple pour *10:27* `HH = 10`
 MM	       | int  | Oui	   | Minute. Exemple pour *10:27* `MM = 27`
 
@@ -75,7 +75,7 @@ Sauvegarde le paramètre dans l'EEPROM.
 
 Paramètres | Type | Requis | Description
 ---------- | ---- | ------ | -----------
-type	   | int  | Oui	   | Utiliser les constantes `TIMER_ON` , `TIMER_OFF` et `TIMER_ENABLE`.
+type	   | int  | Oui	   | Utiliser les constantes `DAILY_ON` , `DAILY_OFF` et `DAILY_ENABLE`.
 
 
 -------------
