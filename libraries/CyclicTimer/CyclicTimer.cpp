@@ -11,7 +11,7 @@ CyclicTimer::CyclicTimer(int IO_Pin, int ee_addr, bool invertedRelay)
 	_ee_addr		= ee_addr;
 	_isWorking     	= false;
 	_isEnable      	= false;
-	_lastChange	= 0;
+	_lastChange		= 0;
 	_invertedRelay	= invertedRelay;
 	pinMode(_IO_Pin,OUTPUT);
 }
@@ -19,12 +19,12 @@ CyclicTimer::CyclicTimer(int IO_Pin, int ee_addr, bool invertedRelay)
     
 unsigned long CyclicTimer::getValue(int type)
 {
-  return _data[type];
+	return _data[type];
 }
 
 void CyclicTimer::setValue(int type,unsigned long sec)
 {
-  _data[type] = sec;
+	_data[type] = sec;
 }
 
 void CyclicTimer::saveValue(int type)
@@ -75,9 +75,9 @@ void CyclicTimer::run(unsigned long currentUnixTime, bool lightMode)
 			duration_ON  = _data[CYCLIC_NIGHT_ON];
 			duration_OFF = _data[CYCLIC_NIGHT_OFF];
 		} 
-  
+	
 		new_state = runCycle(currentUnixTime, duration_ON, duration_OFF);
-
+	
 		if(new_state != _isWorking)
 		{
 			if(new_state) activateRelay();
@@ -89,9 +89,14 @@ void CyclicTimer::run(unsigned long currentUnixTime, bool lightMode)
 
 bool CyclicTimer::isWorking(void)
 {
-  return _isWorking;
+	return _isWorking;
 }
 
+void CyclicTimer::stop(void)
+{
+	if(_isWorking) desactivateRelay();
+	_isWorking = false;
+}
 
 void CyclicTimer::enable(bool value)
 {
@@ -108,7 +113,7 @@ void CyclicTimer::enable(bool value)
 
 bool CyclicTimer::isEnable(void)
 {
-  return _isEnable;
+	return _isEnable;
 }
 
 
@@ -166,10 +171,7 @@ bool CyclicTimer::runCycle(unsigned long currentUnixTime, unsigned long timeON, 
 			_lastChange = currentUnixTime;
 			working = false;
 		}
-		else
-		{
-			working = true;
-		}
+		else working = true;
 	}  
 	else
 	{
@@ -178,34 +180,19 @@ bool CyclicTimer::runCycle(unsigned long currentUnixTime, unsigned long timeON, 
 			_lastChange = currentUnixTime;
 			working = true;
 		}
-		else
-		{
-			working = false;
-		}
+		else working = false;
 	} 
 	return working;
 }
 
 void CyclicTimer::activateRelay(void)
 {
-  if(_invertedRelay)
-  {
-    digitalWrite(_IO_Pin,LOW);
-  }
-  else
-  {  
-    digitalWrite(_IO_Pin,HIGH);
-  }
+	if(_invertedRelay) digitalWrite(_IO_Pin,LOW);
+	else digitalWrite(_IO_Pin,HIGH);
 }
 
 void CyclicTimer::desactivateRelay(void)
 {
-   if(_invertedRelay)
-  {
-    digitalWrite(_IO_Pin,HIGH);
-  }
-  else
-  {  
-    digitalWrite(_IO_Pin,LOW);
-  }
+	if(_invertedRelay) digitalWrite(_IO_Pin,HIGH);
+	else digitalWrite(_IO_Pin,LOW);
 }

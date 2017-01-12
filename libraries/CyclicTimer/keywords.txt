@@ -12,15 +12,20 @@ CyclicTimer	KEYWORD1
 # Methods and Functions (KEYWORD2)
 #######################################
 
-setValue	KEYWORD2
-enable	KEYWORD2
-run	KEYWORD2
 getValue	KEYWORD2
+setValue	KEYWORD2
+saveValue	KEYWORD2
+run	KEYWORD2
 isWorking	KEYWORD2
+stop	KEYWORD2
+enable	KEYWORD2
 isEnable	KEYWORD2
+getEEPROM	KEYWORD2
+getNextEEPROM	KEYWORD2
+setEEPROM	KEYWORD2
 loadAll	KEYWORD2
 saveAll	KEYWORD2
-saveValue	KEYWORD2
+
 
 #######################################
 # Constants (LITERAL1)

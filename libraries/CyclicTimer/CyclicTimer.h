@@ -22,15 +22,17 @@ class CyclicTimer
 		// permet de modifier en cours de route les valeurs par catégorie de parametrage
 		// type = CYCLIC_DAY_ON ou CYCLIC_DAY_OFF ou CYCLIC_NIGHT_ON ou CYCLIC_NIGHT_OFF 
 		// value = nombre de seconde
-		void setValue(int type, unsigned long sec);
+		void	setValue(int type, unsigned long sec);
 		// sauvegarde le parametre dans l'EEPROM
 		// type = CYCLIC_DAY_ON ou CYCLIC_DAY_OFF ou CYCLIC_NIGHT_ON ou CYCLIC_NIGHT_OFF ou CYCLIC_ENABLE
-		void saveValue(int type);
+		void	saveValue(int type);
 		
 		// lance l'analyse
-		void 	run(unsigned long currentUnixTime, bool lightMode = true);
-		//renvoie un booléen signifiant sont état
+		void	run(unsigned long currentUnixTime, bool lightMode = true);
+		// renvoie un booléen signifiant sont état
 		bool	isWorking(void);
+		// passe la broche à l'etat LOW
+		void	stop(void);
 		
 		// active ou desactive le timer
 		void	enable(bool value = true);
@@ -38,26 +40,26 @@ class CyclicTimer
 		bool	isEnable(void);
 
 		// renvoie l'adresse EEPROM
-		int getEEPROM(void);
+		int		getEEPROM(void);
 		// renvoie le prochain octet libre
-		int getNextEEPROM();
+		int		getNextEEPROM();
 		// modifier l'adresse EEPROM
-		void setEEPROM(int addr);
+		void	setEEPROM(int addr);
 		//charge la conf depuis l'EEPROM
-		void loadAll(void);
+		void	loadAll(void);
 		//sauvegarde la conf dans l'EEPROM
-		void saveAll(void);
+		void	saveAll(void);
 		
 	private:
-		int _IO_Pin;
-		int _ee_addr;
-		bool _isWorking;
-		bool _isEnable;
-		bool _invertedRelay;
+		int		_IO_Pin;
+		int		_ee_addr;
+		bool	_isWorking;
+		bool	_isEnable;
+		bool	_invertedRelay;
 		unsigned long _lastChange;
 		unsigned long _data[4];	
-		bool runCycle(unsigned long currentUnixTime, unsigned long timeON, unsigned long timeOFF);
-		void activateRelay(void);
-		void desactivateRelay(void);
+		bool	runCycle(unsigned long currentUnixTime, unsigned long timeON, unsigned long timeOFF);
+		void	activateRelay(void);
+		void	desactivateRelay(void);
 };
 #endif

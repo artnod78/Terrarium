@@ -15,8 +15,8 @@ void setup()
 	rtc.begin();
 	
 	brumi.setValue(CYCLIC_DAY_ON, 8);			// 8 secondes ON le jour
-	brumi.setValue(CYCLIC_DAY_OFF, 10800);	// 3 heures OFF le jour
-	brumi.setValue(CYCLIC_NIGHT_ON, 4);		// 4 secondes ON la nuit
+	brumi.setValue(CYCLIC_DAY_OFF, 10800);		// 3 heures OFF le jour
+	brumi.setValue(CYCLIC_NIGHT_ON, 4);			// 4 secondes ON la nuit
 	brumi.setValue(CYCLIC_NIGHT_OFF, 21600);	// 6 heures OFF la nuit
 	bruni.enable();
 }
