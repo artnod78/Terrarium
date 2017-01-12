@@ -42,5 +42,5 @@ Contrôleur pour terrarium à base d'Arduino
 * Quelques modifications dans les compteurs.
 * Mise à jour doc existante.
 
-#### 2016/xx/xx v0.1
+### 2016/xx/xx v0.1
 * Start
