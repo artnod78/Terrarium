@@ -1,8 +1,6 @@
 #include <Reservoir.h>
 
-#define TAPIS_PIN 13
-
-Reservoir reserve(TAPIS_PIN); // Declaration du thermostat sur la broche 13 de l'arduino
+Reservoir reserve;
 
 void setup()
 {	
@@ -11,7 +9,7 @@ void setup()
 	// de l'eau ne dois pas dépassé 20cm
  	reserve.setValue(20);
 
-	// active le thermostat
+	// active le Reservoir
 	reserve.enable();
 }
 
@@ -24,6 +22,6 @@ void loop()
 	
 	
 	bool alerte = reserve.alert();
-	// alerte == true si on a depasse la limit est dépassé
+	// alerte == true si currentValue >= limit
 	// sinon alerte == false
 }
