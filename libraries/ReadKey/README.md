@@ -35,7 +35,7 @@ Lance la lecture.
 -------------
 
 ### isPress()
-Renvoie `true` si une touche a été appuyée. Sinon `false`.
+Renvoie `true` si une touche à été appuyer.
 
 
 -------------

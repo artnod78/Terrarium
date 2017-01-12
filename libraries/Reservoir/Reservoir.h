@@ -13,16 +13,16 @@ class Reservoir
 		// Déclaration de l'objet
 		Reservoir(int ee_addr = 0);
 		
-		// lance l'analyse
-		void run(unsigned int currentValue);
-		bool alert(void);
-		
 		// renvoie un paramètre
 		int getValue(void);
 		// permet de modifier un paramètre
 		void setValue(int value);
 		// sauvegarde le parametre dans l'EEPROM
 		void saveValue(int type);
+		
+		// lance l'analyse
+		void run(unsigned int currentValue);
+		bool alert(void);
 		
 		// active ou desactive le timer
 		void enable(bool value = true);		

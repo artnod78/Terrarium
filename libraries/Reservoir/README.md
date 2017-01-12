@@ -7,7 +7,7 @@ Permet d'avoir une alerte si le niveau d'eau dans un réservoir est en dessous d
  * `RESERVOIR_EEPROM_LEN` = 3
 
 ## Méthodes
-* [Reservoir()](#thermostatio_pin-ee_addr-invertedrelay)
+* [Reservoir()](#reservoirio_pin-ee_addr-invertedrelay)
 * [getValue()](#getvaluetype)
 * [setValue()](#setvaluetype-value)
 * [saveValue()](#savevaluetype)
@@ -24,7 +24,7 @@ Permet d'avoir une alerte si le niveau d'eau dans un réservoir est en dessous d
 -------------
 
 ### Reservoir(ee_addr)
-Instancie l'objet Thermostat.
+Instancie l'objet Reservoir.
 
 Paramètres	  | Type | Requis | Description
 ------------- | ---- | ------ | -----------
@@ -76,7 +76,7 @@ Renvoie un booléen si l'alerte est déclenché.
 -------------
 
 ### enable(value)
-Active ou désactive le timer.
+Active ou désactive le Reservoir.
 
 Parameters	  | Type | Requis | Description
 ------------- | ---- | ------ | -----------

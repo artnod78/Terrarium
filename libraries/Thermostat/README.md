@@ -89,7 +89,7 @@ Renvoie un booléen signifiant l'état de la broche. Si elle est à l'etat HIGH 
 -------------
 
 ### enable(value)
-Active ou désactive le timer.
+Active ou désactive le Thermostat.
 
 Parameters	  | Type | Requis | Description
 ------------- | ---- | ------ | -----------
