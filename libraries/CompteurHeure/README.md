@@ -1,35 +1,44 @@
-# CompteurHeure
-Compteur permettant la saisi de l'heure (heure et minute).
+# CompteurDate
+Compteur permettant la saisi d'une date (année, mois et jour).
+
+## Constantes
+* `YEAR` = 0
+* `MONTH` = 1
+* `DAY` = 2
 
 ## Méthodes
-* [CompteurHeure()](#compteurheuretime)
-* [start()](#starttime)
+* [CompteurDate()](#compteurdateannee-mois-jour)
+* [start()](#startannee-mois-jour)
 * [run()](#runkey)
-* [time()](#annee)
-* [heure()](#mois)
-* [minute()](#jour)
+* [annee()](#annee)
+* [mois()](#mois)
+* [jour()](#jour)
 * [isSelect()](#isselect)
 * [selected()](#isselect)
 
 
 -----------
 
-#### CompteurHeure(time)
-Instancie l'objet CompteurHeure.
+#### CompteurDate(annee, mois, jour)
+Instancie l'objet CompteurDate.
  
 Paramètres | Type | Requis | Description
 ---------- | ---- | ------ | -----------
-time	   | int  | Non	   | Par défaut égal `0`. Nombre de minute depuis minuit.
+annee	   | int  | Non	   | Par défaut égal `2017`. Valeur de début.
+mois	   | int  | Non	   | Par défaut égal `01`. Valeur de début.
+jour	   | int  | Non	   | Par défaut égal `01`. Valeur de début.
 
 
 -------------
 
-#### start(time)
-Réinitialise l'objet CompteurHeure.
+#### start(annee, mois, jour)
+Réinitialise l'objet CompteurDate.
  
 Paramètres | Type | Requis | Description
 ---------- | ---- | ------ | -----------
-time	   | int  | Non	   | Par défaut égal `0`. Nombre de minute depuis minuit.
+annee	   | int  | Non	   | Par défaut égal `2017`. Valeur de début.
+mois	   | int  | Non	   | Par défaut égal `01`. Valeur de début.
+jour	   | int  | Non	   | Par défaut égal `01`. Valeur de début.
 
 
 -------------
@@ -44,20 +53,20 @@ key		      | int  | Oui	  | Valeur correspondant à une touche du keypad. Voire 
 
 -------------
 
-#### time()
-Renvoie sous la forme d'un entier l'heure en minute depuis minuit.
+#### annee()
+Renvoie sous la forme d'un entier l'année saisi.
 
 
 -------------
 
-#### heure()
-Renvoie sous la forme d'un entier l'heure saisi.
+#### mois()
+Renvoie sous la forme d'un entier le mois saisi.
 
 
 -------------
 
 #### jour()
-Renvoie sous la forme d'un entier la minute saisi.
+Renvoie sous la forme d'un entier le jour saisi.
 
 
 -------------
@@ -69,8 +78,9 @@ Renvoie `true` si le saisi est validée. Sinon `false`.
 -------------
 
 #### selected()
-Renvoie `true` si le saisi est sur l'heure.
-Renvoie `false` si le saisi est sur les minutes.
+Renvoie `YEAR` si le saisi est sur l'année.
+Renvoie `MONTH` si le saisi est sur le mois.
+Renvoie `DAY` si le saisi est sur le jour.
 
 
 -------------
