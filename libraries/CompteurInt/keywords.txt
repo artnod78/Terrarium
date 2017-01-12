@@ -1,5 +1,5 @@
 #######################################
-# Syntax Coloring Map For CyclicTimer
+# Syntax Coloring Map For CompteurInt
 #######################################
 
 #######################################
@@ -14,8 +14,8 @@ CompteurInt	KEYWORD1
 
 start	KEYWORD2
 run	KEYWORD2
-isSelect	KEYWORD2
 value	KEYWORD2
+isSelect	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
