@@ -1,0 +1,34 @@
+#######################################
+# Syntax Coloring Map For RetroLcd
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+RetroLcd	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+getValue	KEYWORD2
+setValue	KEYWORD2
+saveValue	KEYWORD2
+run	KEYWORD2
+isWorking	KEYWORD2
+enable	KEYWORD2
+isEnable	KEYWORD2
+getEEPROM	KEYWORD2
+getNextEEPROM	KEYWORD2
+setEEPROM	KEYWORD2
+loadAll	KEYWORD2
+saveAll	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+RETRO_TIME	LITERAL1
+RETRO_BRIGHT	LITERAL1
+RETRO_EEPROM_LEN	LITERAL1
