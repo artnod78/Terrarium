@@ -41,21 +41,14 @@ Renvoie `true` si une touche à été appuyer.
 -------------
 
 ### key()
-Renvoie l'identifiant de la touche appuyé.
-`btnRIGHT` , `btnUP` , 1
- * `btnDOWN` = 2
- * `btnLEFT` = 3
- * `btnSELECT` = 4
- * `btnNONE`
+Renvoie l'identifiant de la touche appuyé sous la forme d'un entier.
+`btnRIGHT` , `btnUP` , `btnDOWN` , `btnLEFT` , `btnSELECT` , `btnNONE`.
+
 
 -------------
 
 ### val()
-Renvoie
-
-Paramètres	 | Type			| Requis | Description
------------- | ------------ | ------ | -----------
-currentValue | unsigned int | Oui	  | Niveau actuel.
+Renvoie la valeur lu lors de l'appel de `read()` sous la forme d'un entier.
 
 
 -------------
