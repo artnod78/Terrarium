@@ -1,5 +1,5 @@
 #######################################
-# Syntax Coloring Map For CyclicTimer
+# Syntax Coloring Map For CompteurHeure
 #######################################
 
 #######################################
@@ -14,10 +14,10 @@ CompteurHeure	KEYWORD1
 
 start	KEYWORD2
 run	KEYWORD2
-isSelect	KEYWORD2
 time	KEYWORD2
 heure	KEYWORD2
 minute	KEYWORD2
+isSelect	KEYWORD2
 heure_select	KEYWORD2
 
 #######################################
