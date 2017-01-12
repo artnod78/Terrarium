@@ -8,20 +8,20 @@ Minuterie journalière avec chevauchement sur 2 jours.
  * `DAILY_EEPROM_LEN`  = 5
 
 ## Méthodes
-* [DailyTimer()](https://github.com/artnod78/Terrarium/blob/master/libraries/DailyTimer/README.md#dailytimerio_pin-ee_addr-invertedrelay)
-* [getValue()](https://github.com/artnod78/Terrarium/blob/master/libraries/DailyTimer/README.md#getvaluetype)
-* [setValue(min)](https://github.com/artnod78/Terrarium/blob/master/libraries/DailyTimer/README.md#setvaluetype-minute)
-* [setValue(HH,MM)](https://github.com/artnod78/Terrarium/blob/master/libraries/DailyTimer/README.md#setvaluetype-hh-mm)
-* [saveValue()](https://github.com/artnod78/Terrarium/blob/master/libraries/DailyTimer/README.md#savevaluetype)
-* [run()](https://github.com/artnod78/Terrarium/blob/master/libraries/DailyTimer/README.md#runcurrenttime)
-* [isWorking()](https://github.com/artnod78/Terrarium/blob/master/libraries/DailyTimer/README.md#isworking)
-* [enable()](https://github.com/artnod78/Terrarium/blob/master/libraries/DailyTimer/README.mdr#enablevalue)
-* [isEnable()](https://github.com/artnod78/Terrarium/blob/master/libraries/DailyTimer/README.md#isenable)
-* [getEEPROM()](https://github.com/artnod78/Terrarium/blob/master/libraries/DailyTimer/README.md#geteeprom)
-* [getNextEEPROM()](https://github.com/artnod78/Terrarium/blob/master/libraries/DailyTimer/README.md#getnexteeprom)
-* [setEEPROM()](https://github.com/artnod78/Terrarium/blob/master/libraries/DailyTimer/README.md#seteepromaddr)
-* [loadAll()](https://github.com/artnod78/Terrarium/blob/master/libraries/DailyTimer/README.md#loadall)
-* [saveAll()](https://github.com/artnod78/Terrarium/blob/master/libraries/DailyTimer/README.md#saveall)
+* [DailyTimer()](#dailytimerio_pin-ee_addr-invertedrelay)
+* [getValue()](#getvaluetype)
+* [setValue(min)](#setvaluetype-minute)
+* [setValue(HH,MM)](#setvaluetype-hh-mm)
+* [saveValue()](#savevaluetype)
+* [run()](#runcurrenttime)
+* [isWorking()](#isworking)
+* [enable()](#enablevalue)
+* [isEnable()](#isenable)
+* [getEEPROM()](#geteeprom)
+* [getNextEEPROM()](#getnexteeprom)
+* [setEEPROM()](#seteepromaddr)
+* [loadAll()](#loadall)
+* [saveAll()](#saveall)
 
 -------------
 
