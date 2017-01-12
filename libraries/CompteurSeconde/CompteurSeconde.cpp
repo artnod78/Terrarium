@@ -5,14 +5,14 @@
 #endif
 #include "CompteurSeconde.h"
 
-CompteurSeconde::CompteurSeconde(int value)
+CompteurSeconde::CompteurSeconde(unsigned long value)
 {
 	_seconde = value;
 	_isSelect = false;
 	_increment = 1;
 }
 
-void CompteurSeconde::start(int value)
+void CompteurSeconde::start(unsigned long value)
 {
 	_seconde = value;
 	_isSelect = false;
@@ -32,12 +32,12 @@ void CompteurSeconde::run(int key)
 			
 		case 1:
 			_seconde += _increment;
-			if(_seconde > 86400 ) _seconde = 0;
+			if(_seconde > 4294967295 ) _seconde = 0;
 			break;
 			
 		case 2:
 			_seconde -= _increment;
-			if(_seconde < 0 ) _seconde = 86400;
+			if(_seconde < 0 ) _seconde = 4294967295;
 			break;
 			
 		case 3:
