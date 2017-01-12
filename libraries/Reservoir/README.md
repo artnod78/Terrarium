@@ -7,9 +7,9 @@ Permet d'avoir une alerte si le niveau d'eau dans un réservoir est en dessous d
  * `RESERVOIR_EEPROM_LEN` = 3
 
 ## Méthodes
-* [Reservoir()](#reservoirio_pin-ee_addr-invertedrelay)
-* [getValue()](#getvaluetype)
-* [setValue()](#setvaluetype-value)
+* [Reservoir()](#reservoiree_addr)
+* [getValue()](#getvalue)
+* [setValue()](#setvaluevalue)
 * [saveValue()](#savevaluetype)
 * [run()](#runcurrentvalue)
 * [alert()](#alert)
@@ -34,7 +34,7 @@ ee_addr	      | int  | Non	  | Par défaut égal `0`. Position de début dans l'
 -------------
 
 ### getValue()
-Renvoie le paramètre souhaité sous la fourme d'un flottant.
+Renvoie le paramètre souhaité sous la fourme d'un entier.
 
 
 -------------
