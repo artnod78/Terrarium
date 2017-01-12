@@ -1,7 +1,7 @@
 # CompteurDate
 Compteur permettant la saisi d'une date (année, mois et jour).
 
-## Méthodes
+## Constantes
 * `YEAR` = 0
 * `MONTH` = 1
 * `DAY` = 2
