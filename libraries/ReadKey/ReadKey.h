@@ -12,16 +12,16 @@ class ReadKey
 {
 	public:
 		ReadKey(int IO_Pin);
-		void read(void);
-		bool isPress(void);
-		int key(void);
-		int val(void);
+		void	read(void);
+		bool	isPress(void);
+		int		key(void);
+		int		val(void);
 
 	private:
-		int _IO_Pin;
-		int _key;
-		int _val;
-		bool _isPress;
-		int readKey(void);
+		int		_IO_Pin;
+		int		_key;
+		int		_val;
+		bool	_isPress;
+		int		readKey(void);
 };
 #endif

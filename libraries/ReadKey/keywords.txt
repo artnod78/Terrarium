@@ -1,0 +1,29 @@
+#######################################
+# Syntax Coloring Map For ReadKey
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+ReadKey	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+read	KEYWORD2
+isPress	KEYWORD2
+key	KEYWORD2
+val	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+btnRIGHT	LITERAL1
+btnUP	LITERAL1
+btnDOWN	LITERAL1
+btnLEFT	LITERAL1
+btnSELECT	LITERAL1
+btnNONE	LITERAL1
