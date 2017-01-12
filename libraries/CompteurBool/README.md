@@ -21,6 +21,16 @@ value	   | bool | Non	   | Par défaut égal `false`. Valeur de début.
 
 -------------
 
+#### start(value)
+Réinitialise l'objet CompteurBool.
+ 
+Paramètres | Type | Requis | Description
+---------- | ---- | ------ | -----------
+value	   | bool | Non	   | Par défaut égal `false`. Valeur souhaité.
+
+
+-------------
+
 #### run(key)
 Incrémente le menu.
  
