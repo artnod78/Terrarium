@@ -28,7 +28,7 @@ Contrôleur pour terrarium à base d'Arduino
 
 -------------
 
-### Patch Note
+### PATCH Note
 #### 2017/01/12 v0.3
 * Créer les menu pour la saisi du niveau d'eau critique dans le réservoir.
 * Créer les menu pour l'intensité et la durée du rétro éclairage.
