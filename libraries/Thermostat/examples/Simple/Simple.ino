@@ -2,13 +2,13 @@
 
 #define TAPIS_PIN 13
 
-Hygrostat brumi(TAPIS_PIN); // Declaration du thermostat sur la broche 10 de l'arduino
+Thermostat brumi(TAPIS_PIN); // Declaration du thermostat sur la broche 13 de l'arduino
 
 void setup()
 {	
 	// definition des paramètres voulu
  	brumi.setValue(THERMO_DAY_MIN, 25);
- 	brumi.setValue(THERMO_DAY_MAX, 27;
+ 	brumi.setValue(THERMO_DAY_MAX, 27);
  	brumi.setValue(THERMO_NIGHT_MIN, 20);
  	brumi.setValue(THERMO_NIGHT_MAX, 22);
 

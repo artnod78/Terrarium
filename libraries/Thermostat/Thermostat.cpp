@@ -7,7 +7,7 @@
 
 Thermostat::Thermostat(int IO_Pin, int ee_addr, bool invertedRelay)
 {
-	_IO_Pin        		= IO_Pin;
+	_IO_Pin        	= IO_Pin;
 	_ee_addr		= ee_addr;
 	_isWorking     	= false;
 	_isEnable      	= false;
@@ -18,12 +18,12 @@ Thermostat::Thermostat(int IO_Pin, int ee_addr, bool invertedRelay)
 
 float Thermostat::getValue(int type)
 {
-  return _data[type];
+	return _data[type];
 }
 
 void Thermostat::setValue(int type,float value)
 {
-  _data[type] = value;
+	_data[type] = value;
 }
 
 void Thermostat::saveValue(int type)
@@ -89,7 +89,7 @@ void Thermostat::run(float currentValue, bool lightMode)
 
 bool Thermostat::isWorking(void)
 {
-  return _isWorking;
+	return _isWorking;
 }
 
 void Thermostat::enable(bool value)
@@ -106,7 +106,7 @@ void Thermostat::enable(bool value)
 }
 bool Thermostat::isEnable(void)
 {
-  return _isEnable;
+	return _isEnable;
 }
 
 
@@ -172,24 +172,12 @@ bool Thermostat::runCycle(float value, float min, float max)
 
 void Thermostat::activateRelay()
 {
-  if(_invertedRelay)
-  {
-    digitalWrite(_IO_Pin,LOW);
-  }
-  else
-  {  
-    digitalWrite(_IO_Pin,HIGH);
-  }
+	if(_invertedRelay) digitalWrite(_IO_Pin,LOW);
+	else digitalWrite(_IO_Pin,HIGH);
 }
 
 void Thermostat::desactivateRelay()
 {
-   if(_invertedRelay)
-  {
-    digitalWrite(_IO_Pin,HIGH);
-  }
-  else
-  {  
-    digitalWrite(_IO_Pin,LOW);
-  }
+	if(_invertedRelay) digitalWrite(_IO_Pin,HIGH);
+	else digitalWrite(_IO_Pin,LOW);
 }
