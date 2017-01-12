@@ -80,7 +80,7 @@ Sélectionne ou désélectionne le menu.
  
 Paramètres	  | Type | Requis | Description
 ------------- | ---- | ------ | -----------
-value		  | bool | Non	  | Par défaut égal `true`.Nouvelle valeur.
+value		  | bool | Non	  | Par défaut égal `true`. Nouvelle valeur.
 
 
 -------------
