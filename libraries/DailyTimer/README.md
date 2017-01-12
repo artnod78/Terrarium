@@ -1,5 +1,5 @@
 # DailyTimer
-Minuterie journalière avec chevauchement sur 2 jours.
+Minuterie journalière avec chevauchement sur 2 jours. Active ou désactive une broche selon l'heure.
 
 ## Constantes
  * `DAILY_ON` = 0

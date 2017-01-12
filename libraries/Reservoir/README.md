@@ -1,23 +1,18 @@
-# Thermostat
-Thermostat. Active ou désactive une broche en dehors de la plage définis.
-Peut être utilisé pour température ou de taux d'humidité ou autres.
-Configuration différente pour le jour et la nuit.
+# Reservoir
+Permet d'avoir une alerte si le niveau d'eau dans un réservoir est en dessous de la limite.
 
 ## Constantes
- * `THERMO_DAY_MIN` = 0
- * `THERMO_DAY_MAX` = 1
- * `THERMO_NIGHT_MIN` = 2
- * `THERMO_NIGHT_MAX` = 3
- * `THERMO_ENABLE` = 4
- * `THERMO_EEPROM_LEN`  = 5
+ * `RESERVOIR_LIMIT` = 0
+ * `RESERVOIR_ENABLE` = 1
+ * `RESERVOIR_EEPROM_LEN` = 3
 
 ## Méthodes
-* [Thermostat()](#thermostatio_pin-ee_addr-invertedrelay)
+* [Reservoir()](#thermostatio_pin-ee_addr-invertedrelay)
 * [getValue()](#getvaluetype)
 * [setValue()](#setvaluetype-value)
 * [saveValue()](#savevaluetype)
-* [run()](#runcurrentvalue-lightmode)
-* [isWorking()](#isworking)
+* [run()](#runcurrentvalue)
+* [alert()](#alert)
 * [enable()](#enablevalue)
 * [isEnable()](#isenable)
 * [getEEPROM()](#geteeprom)
@@ -28,13 +23,13 @@ Configuration différente pour le jour et la nuit.
 
 -------------
 
-### Thermostat(IO_Pin, ee_addr, invertedRelay)
+### Reservoir(IO_Pin, ee_addr, invertedRelay)
 Instancie l'objet Thermostat.
 
 Paramètres	  | Type | Requis | Description
 ------------- | ---- | ------ | -----------
 IO_Pin		  | int  | Oui	  | Numéro de la broche utilisé.
-ee_addr	      | int  | Non	  | Par défaut égal `0`. Position de début dans l'EEPROM. Occupe 17 octets.
+ee_addr	      | int  | Non	  | Par défaut égal `0`. Position de début dans l'EEPROM.
 invertedRelay | bool | Non	  | Par défaut égal `false`. Inverse l'état de la broche utilisé si égal `true`.
 
 
@@ -71,19 +66,18 @@ type	   | int  | Oui	   | Utiliser les constantes `THERMO_DAY_MIN` , `THERMO_DAY
 
 -------------
 
-### run(currentValue, lightMode)
+### run(currentValue)
 Lance l'analyse.
 
-Paramètres	 | Type	 | Requis | Description
------------- | ----- | ------ | -----------
-currentValue | float | Oui	  | Valeur actuelle.
-lightMode	 | bool	 | Non	  | Par défaut égal `true`. Jour ou nuit.
+Paramètres	 | Type			| Requis | Description
+------------ | ------------ | ------ | -----------
+currentValue | unsigned int | Oui	  | Niveau actuel.
 
 
 -------------
 
-### isWorking()
-Renvoie un booléen signifiant l'état de la broche. Si elle est à l'etat HIGH ou LOW.
+### alert()
+Renvoie un booléen si l'alerte est déclenché.
 
 
 -------------
@@ -127,12 +121,12 @@ addr		  | int  | Oui	  | Remplace l'adresse EEPROM.
 -------------
 
 ### loadAll()
-Lis et remplace la configuration depuis l'EEPROM (17 octets).
+Lis et remplace la configuration depuis l'EEPROM.
 
 -------------
 
 ### saveAll()
-Sauvegarde la configuration dans l'EEPROM (17 octets).
+Sauvegarde la configuration dans l'EEPROM.
 
 
 -------------

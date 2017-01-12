@@ -1,5 +1,5 @@
 # CyclicTimer
-Minuterie cyclique. Précision à la seconde.
+Minuterie cyclique. Précision à la seconde. Active ou désactive une broche pendant une durée. Configuration différente le jour et la nuit.
 
 ## Constantes
  * `CYCLIC_DAY_ON` = 0
@@ -75,7 +75,7 @@ Lance l'analyse.
 
 Paramètres		| Type			| Requis | Description
 --------------- | ------------- | ------ | -----------
-currentUnixTime | unsigned long | Oui	 | Numéro de la broche utilisé.
+currentUnixTime | unsigned long | Oui	 | Heure actuelle.
 lightMode		| bool			| Non	 | Par défaut égal `true`. Jour ou nuit.
 
 

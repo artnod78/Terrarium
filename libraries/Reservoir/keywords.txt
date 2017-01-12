@@ -1,0 +1,34 @@
+#######################################
+# Syntax Coloring Map For Reservoir
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Reservoir	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+run	KEYWORD2
+alert	KEYWORD2
+getValue	KEYWORD2
+setValue	KEYWORD2
+saveValue	KEYWORD2
+enable	KEYWORD2
+isEnable	KEYWORD2
+getEEPROM	KEYWORD2
+getNextEEPROM	KEYWORD2
+setEEPROM	KEYWORD2
+loadAll	KEYWORD2
+saveAll	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+RESERVOIR_LIMIT	LITERAL1
+RESERVOIR_ENABLE	LITERAL1
+RESERVOIR_EEPROM_LEN	LITERAL1
