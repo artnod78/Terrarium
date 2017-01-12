@@ -23,35 +23,28 @@ Permet d'avoir une alerte si le niveau d'eau dans un réservoir est en dessous d
 
 -------------
 
-### Reservoir(IO_Pin, ee_addr, invertedRelay)
+### Reservoir(ee_addr)
 Instancie l'objet Thermostat.
 
 Paramètres	  | Type | Requis | Description
 ------------- | ---- | ------ | -----------
-IO_Pin		  | int  | Oui	  | Numéro de la broche utilisé.
 ee_addr	      | int  | Non	  | Par défaut égal `0`. Position de début dans l'EEPROM.
-invertedRelay | bool | Non	  | Par défaut égal `false`. Inverse l'état de la broche utilisé si égal `true`.
 
 
 -------------
 
-### getValue(type)
+### getValue()
 Renvoie le paramètre souhaité sous la fourme d'un flottant.
 
-Paramètres | Type  | Requis | Description
----------- | ----- | ------ | -----------
-type	   | int   | Oui	| Utiliser les constantes `THERMO_DAY_MIN` , `THERMO_DAY_MAX` , `THERMO_NIGHT_MIN` , `THERMO_NIGHT_MAX`.
-
 
 -------------
 
-### setValue(type, value)
+### setValue(value)
 Permet de configurer un paramètre.
 
 Parametres | Type  | Requis | Description
 ---------- | ----- | ------ | -----------
-type	   | int   | Oui	| Utiliser les constantes `THERMO_DAY_MIN` , `THERMO_DAY_MAX` , `THERMO_NIGHT_MIN` , `THERMO_NIGHT_MAX`.
-value  	   | float | Oui	| Nombre de seconde.
+value  	   | int   | Oui	| Niveau limite.
 
 
 -------------
@@ -61,7 +54,7 @@ Sauvegarde le paramètre dans l'EEPROM.
 
 Paramètres | Type | Requis | Description
 ---------- | ---- | ------ | -----------
-type	   | int  | Oui	   | Utiliser les constantes `THERMO_DAY_MIN` , `THERMO_DAY_MAX` , `THERMO_NIGHT_MIN` , `THERMO_NIGHT_MAX` , `THERMO_ENABLE`.
+type	   | int  | Oui	   | Utiliser les constantes `RESERVOIR_LIMIT` , `RESERVOIR_ENABLE`.
 
 
 -------------
