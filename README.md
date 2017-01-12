@@ -5,18 +5,18 @@ Contrôleur pour terrarium à base d'Arduino
 -------------
 
 ### Documentations
-* [DailyTimer](https://github.com/artnod78/Terrarium/blob/master/libraries/DailyTimer/README.md)
-* [CyclicTimer](https://github.com/artnod78/Terrarium/blob/master/libraries/CyclicTimer/README.md)
-* [Thermostat](https://github.com/artnod78/Terrarium/blob/master/libraries/Thermostat/README.md)
-* [Reservoir](https://github.com/artnod78/Terrarium/blob/master/libraries/Reservoir/README.md)
-* [ReadKey](https://github.com/artnod78/Terrarium/blob/master/libraries/ReadKey/README.md)
-* [RetroLcd](https://github.com/artnod78/Terrarium/blob/master/libraries/RetroLcd/README.md)
-* [Compteur](https://github.com/artnod78/Terrarium/blob/master/libraries/Compteur/README.md)
-* [CompteurBool](https://github.com/artnod78/Terrarium/blob/master/libraries/CompteurBool/README.md)
-* [CompteurDate](https://github.com/artnod78/Terrarium/blob/master/libraries/CompteurDate/README.md)
-* [CompteurHeure](https://github.com/artnod78/Terrarium/blob/master/libraries/CompteurHeure/README.md)
-* [CompteurSeconde](https://github.com/artnod78/Terrarium/blob/master/libraries/CompteurSeconde/README.md)
-* [CompteurInt](https://github.com/artnod78/Terrarium/blob/master/libraries/CompteurInt/README.md)
+* [DailyTimer](https://github.com/artnod78/Terrarium/blob/master/libraries/DailyTimer)
+* [CyclicTimer](https://github.com/artnod78/Terrarium/blob/master/libraries/CyclicTimer)
+* [Thermostat](https://github.com/artnod78/Terrarium/blob/master/libraries/Thermostat)
+* [Reservoir](https://github.com/artnod78/Terrarium/blob/master/libraries/Reservoir)
+* [ReadKey](https://github.com/artnod78/Terrarium/blob/master/libraries/ReadKey)
+* [RetroLcd](https://github.com/artnod78/Terrarium/blob/master/libraries/RetroLcd)
+* [Compteur](https://github.com/artnod78/Terrarium/blob/master/libraries/Compteur)
+* [CompteurBool](https://github.com/artnod78/Terrarium/blob/master/libraries/CompteurBool)
+* [CompteurDate](https://github.com/artnod78/Terrarium/blob/master/libraries/CompteurDate)
+* [CompteurHeure](https://github.com/artnod78/Terrarium/blob/master/libraries/CompteurHeure)
+* [CompteurSeconde](https://github.com/artnod78/Terrarium/blob/master/libraries/CompteurSeconde)
+* [CompteurInt](https://github.com/artnod78/Terrarium/blob/master/libraries/CompteurInt)
 
 -------------
 
