@@ -10,7 +10,9 @@ Compteur permettant la saisi d'une date (année, mois et jour).
 * [CompteurDate()](#compteurdateannee-mois-jour)
 * [start()](#startannee-mois-jour)
 * [run()](#runkey)
-* [value()](#value)
+* [annee()](#annee)
+* [mois()](#mois)
+* [jour()](#jour)
 * [isSelect()](#isselect)
 * [selected()](#isselect)
 
