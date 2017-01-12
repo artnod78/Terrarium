@@ -12,7 +12,7 @@ Permet de contrôler l'intensité du rétro éclairage (de 0 à 8) et la durée 
 * [setValue()](#setvaluetype-value)
 * [saveValue()](#savevaluetype)
 * [run()](#runcurrentunixtime-keypress)
-* [isWorking()](#isWorking)
+* [isWorking()](#isworking)
 * [getEEPROM()](#geteeprom)
 * [getNextEEPROM()](#getnexteeprom)
 * [setEEPROM()](#seteepromaddr)
