@@ -17,6 +17,10 @@ RetroLcd::RetroLcd(int IO_Pin, int ee_addr)
 
 int RetroLcd::getValue(int type)
 {
+	if(type == RETRO_BRIGHT)
+	{
+		if(_data[RETRO_BRIGHT] != 0) return (_data[RETRO_BRIGHT]+1)/32;
+	}
 	return _data[type];
 }
 
