@@ -6,21 +6,24 @@
 # Datatypes (KEYWORD1)
 #######################################
 
-DailyTimer		KEYWORD1
+DailyTimer	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
-setValue	KEYWORD2
-enable	KEYWORD2
-run	KEYWORD2
 getValue	KEYWORD2
+setValue	KEYWORD2
+saveValue	KEYWORD2
+run	KEYWORD2
 isWorking	KEYWORD2
+enable	KEYWORD2
 isEnable	KEYWORD2
+getEEPROM	KEYWORD2
+getNextEEPROM	KEYWORD2
+setEEPROM	KEYWORD2
 loadAll	KEYWORD2
 saveAll	KEYWORD2
-saveValue	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
@@ -29,4 +32,4 @@ saveValue	KEYWORD2
 DAILY_ON	LITERAL1
 DAILY_OFF	LITERAL1
 DAILY_ENABLE	LITERAL1
-DAILY_EEPROM_SIZE	LITERAL1
+DAILY_EEPROM_LEN	LITERAL1

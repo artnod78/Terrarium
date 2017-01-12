@@ -60,7 +60,7 @@ void DailyTimer::run(int currentTime)
 	if(_isEnable)
 	{		
 		bool new_state = runCycle(currentTime, _data[DAILY_ON], _data[DAILY_OFF]);
-
+	
 		if(new_state != _isWorking)
 		{
 			if(new_state) activateRelay();
