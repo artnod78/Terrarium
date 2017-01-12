@@ -85,7 +85,7 @@ Lance l'analyse.
 
 Paramètres	  | Type | Requis | Description
 ------------- | ---- | ------ | -----------
-currentTime	  | int  | Oui	  | Nombre de minute depuis minuit. Exemple pour *10:27* `minute = (10*60) + 27`
+currentTime	  | int  | Oui	  | Heure actuelle. Nombre de minute depuis minuit. Exemple pour *10:27* `minute = (10*60) + 27`
 
 
 -------------
