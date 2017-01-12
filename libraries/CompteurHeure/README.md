@@ -56,7 +56,7 @@ Renvoie sous la forme d'un entier l'heure saisi.
 
 -------------
 
-#### jour()
+#### minute()
 Renvoie sous la forme d'un entier la minute saisi.
 
 
