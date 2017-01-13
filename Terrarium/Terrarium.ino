@@ -56,10 +56,6 @@ DateTime now;
 // LCD
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 ReadKey keypad(KEY_PIN);
-unsigned long retro_start = 0;
-bool retro_on = false;
-int refresh_key = btnNONE;
-int last_sec =0;
 
 // DS18B20
 OneWire oneWire(ONE_WIRE_BUS);
