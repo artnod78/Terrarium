@@ -25,7 +25,7 @@
 class Compteur
 {
 	public:
-		Compteur(int min, int max);
+		Compteur(int min = 0 , int max = 0);
 		void run(int key);
 		
 		int index(void);

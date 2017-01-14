@@ -32,12 +32,12 @@ void CompteurSeconde::run(int key)
 			
 		case 1:
 			_seconde += _increment;
-			if(_seconde > 4294967295 ) _seconde = 0;
+			if(_seconde > 4000000000 ) _seconde = 0;
 			break;
 			
 		case 2:
 			_seconde -= _increment;
-			if(_seconde < 0 ) _seconde = 4294967295;
+			if(_seconde < 0 ) _seconde = 4000000000;
 			break;
 			
 		case 3:
@@ -56,7 +56,7 @@ void CompteurSeconde::run(int key)
 }
 
 
-int CompteurSeconde::seconde(void)
+unsigned long CompteurSeconde::seconde(void)
 {
 	return _seconde;
 }

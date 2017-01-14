@@ -1,0 +1,25 @@
+#######################################
+# Syntax Coloring Map For CompteurFloat
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+CompteurFloat	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+start	KEYWORD2
+run	KEYWORD2
+value	KEYWORD2
+entier	KEYWORD2
+decimal	KEYWORD2
+isSelect	KEYWORD2
+heure_select	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
