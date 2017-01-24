@@ -21,7 +21,7 @@ Contrôleur pour terrarium à base d'Arduino
 -------------
 
 ### TODO List
-* Utiliser qu'un compteur pour la saisi des paramètres. Réinstancier le même objet avec une autre classe.
+* Utiliser qu'un menu et un sous menu.
 * Modifier le le reset. Ne réinitiliser et sauvegarder que les paramètres qui ont été modifié.
 * Créer un compteur pour la sasi de float.
 * Compléter la documentation.
