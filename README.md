@@ -27,6 +27,7 @@ Contrôleur pour terrarium à base d'Arduino
 
 ### PATCH Note
 #### 2017/03/18 v0.4
+* Créer la librairies FanSpeed (menu, saisi...).
 * Utiliser qu'un compteur pour les sous menu.
 * Modifier le reset. Ne réinitiliser que les paramètres qui ont été modifié.
 * Créer un compteur pour la sasi de float.
