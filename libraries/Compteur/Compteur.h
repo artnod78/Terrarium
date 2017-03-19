@@ -6,7 +6,7 @@
 #define MENU_PULVE		2
 #define MENU_RESERVOIR	3
 #define MENU_TAPIS		4
-#define MENU_BRUMI		5
+#define MENU_VENTILO	5
 #define MENU_CLOCK		6
 #define MENU_GENERAL	7
 
@@ -14,6 +14,7 @@
 #define CYCLIC_RETURN		5
 #define RESERVOIR_RETURN	2
 #define THERMO_RETURN		5
+#define FAN_RETURN			9
 
 #define CLOCK_DATE   	0
 #define CLOCK_HEURE	 	1

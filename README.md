@@ -21,17 +21,14 @@ Contrôleur pour terrarium à base d'Arduino
 -------------
 
 ### TODO List
+* Utiliser qu'un compteur pour la saisi des paramètres. Réinstancier le même objet avec une autre classe.
+* Modifier le le reset. Ne réinitiliser et sauvegarder que les paramètres qui ont été modifié.
+* Créer un compteur pour la sasi de float.
 * Compléter la documentation.
 
 -------------
 
 ### PATCH Note
-#### 2017/01/29 v0.4
-* Utiliser qu'un menu et un sous menu.
-* Modifier le le reset. Ne réinitiliser et sauvegarder que les paramètres qui ont été modifié.
-* Créer un compteur pour la sasi de float.
-* Mise à jour doc existante.
-
 #### 2017/01/12 v0.3
 * Créer les menu pour la saisi du niveau d'eau critique dans le réservoir.
 * Créer les menu pour l'intensité et la durée du rétro éclairage.

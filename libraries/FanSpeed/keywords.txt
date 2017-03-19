@@ -1,0 +1,41 @@
+#######################################
+# Syntax Coloring Map For FanSpeed
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+FanSpeed	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+getValue	KEYWORD2
+setValue	KEYWORD2
+saveValue	KEYWORD2
+run	KEYWORD2
+isWorking	KEYWORD2
+enable	KEYWORD2
+isEnable	KEYWORD2
+getEEPROM	KEYWORD2
+getNextEEPROM	KEYWORD2
+setEEPROM	KEYWORD2
+loadAll	KEYWORD2
+saveAll	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+FAN_TEMP_DAY_MIN	LITERAL1
+FAN_TEMP_DAY_MAX	LITERAL1
+FAN_HUM_DAY_MIN	LITERAL1
+FAN_HUM_DAY_MAX	LITERAL1
+FAN_TEMP_NIGHT_MIN	LITERAL1
+FAN_TEMP_NIGHT_MAX	LITERAL1
+FAN_HUM_NIGHT_MIN	LITERAL1
+FAN_HUM_NIGHT_MAX	LITERAL1
+FAN_ENABLE	LITERAL1
+FAN_EEPROM_LEN	LITERAL1
