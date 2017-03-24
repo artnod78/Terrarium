@@ -1,6 +1,14 @@
 Terrarium
 ===================
 Contrôleur pour terrarium à base d'Arduino
+* Timer journalier
+* Timer cyclic
+* THermostat/Hygrostat
+* Alerte niveau d'eau (réservoir)
+* regulateur de vitesse (ventilateur)
+* relais 230V 10A
+* horloge temps réel
+* IHM (lcd 16x2 et keypad (5 touches)
 
 -------------
 
