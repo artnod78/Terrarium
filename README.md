@@ -9,7 +9,7 @@ Contrôleur pour terrarium à base d'Arduino
 * THermostat/Hygrostat
 * Alerte niveau d'eau (réservoir)
 * regulateur de vitesse (ventilateur)
-* Reset de la con
+* Reset de la config
 
 -------------
 
