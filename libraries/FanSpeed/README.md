@@ -13,6 +13,7 @@ Configuration différente pour le jour et la nuit.
  * `FAN_HUM_NIGHT_MIN` = 6
  * `FAN_HUM_NIGHT_MAX` = 7
  * `FAN_ENABLE` = 8
+ * `FAN_EEPROM_LEN` = 33
 Valeur que vous pouvez adapter:
  * `FAN_SPEED_1`  = 85
  * `FAN_SPEED_2` = 170
