@@ -40,7 +40,7 @@ invertedRelay | bool | Non	  | Par défaut égal `false`. Inverse l'état de la 
 -------------
 
 ### getValue(type)
-Renvoie le paramètre souhaité sous la fourme d'un long non signé, représentant un nombre de seconde.
+Renvoie le paramètre souhaité sous la forme d'un long non signé, représentant un nombre de seconde.
 
 Paramètres | Type | Requis | Description
 ---------- | ---- | ------ | -----------
