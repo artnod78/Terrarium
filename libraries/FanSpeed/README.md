@@ -48,7 +48,7 @@ ee_addr	      | int  | Non	  | Par défaut égal `0`. Position de début dans l'
 -------------
 
 ### getValue(type)
-Renvoie le paramètre souhaité sous la fourme d'un flottant.
+Renvoie le paramètre souhaité sous la forme d'un flottant.
 
 Paramètres | Type  | Requis | Description
 ---------- | ----- | ------ | -----------
@@ -97,7 +97,7 @@ Renvoie un booléen signifiant l'état de la broche. Si elle est à l'etat HIGH 
 -------------
 
 ### enable(value)
-Active ou désactive le Thermostat.
+Active ou désactive le FanSpeed.
 
 Parameters	  | Type | Requis | Description
 ------------- | ---- | ------ | -----------
