@@ -34,7 +34,7 @@ ee_addr	      | int  | Non	  | Par défaut égal `0`. Position de début dans l'
 -------------
 
 ### getValue()
-Renvoie le paramètre souhaité sous la fourme d'un entier.
+Renvoie le paramètre souhaité sous la forme d'un entier.
 
 
 -------------
