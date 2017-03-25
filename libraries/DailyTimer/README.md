@@ -38,7 +38,7 @@ invertedRelay | bool | Non	  | Par défaut égal `false`. Inverse l'état de la 
 -------------
 
 ### getValue(type)
-Renvoie le paramètre souhaité sous la fourme d'un entier, représentant un nombre de minute depuis minuit.
+Renvoie le paramètre souhaité sous la forme d'un entier, représentant un nombre de minute depuis minuit.
 
 Paramètres | Type | Requis | Description
 ---------- | ---- | ------ | -----------
