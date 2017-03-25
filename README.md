@@ -6,7 +6,7 @@ Contrôleur pour terrarium à base d'Arduino
 * Horloge temps réel
 * Timer journalier
 * Timer cyclic
-* THermostat/Hygrostat
+* Thermostat/Hygrostat
 * Alerte niveau d'eau (réservoir)
 * regulateur de vitesse (ventilateur)
 * Reset de la config
