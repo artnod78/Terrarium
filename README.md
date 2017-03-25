@@ -19,6 +19,7 @@ Gestion d'un terrarium à base d'Arduino
 * [DailyTimer](https://github.com/artnod78/Terrarium/blob/master/libraries/DailyTimer)
 * [CyclicTimer](https://github.com/artnod78/Terrarium/blob/master/libraries/CyclicTimer)
 * [Thermostat](https://github.com/artnod78/Terrarium/blob/master/libraries/Thermostat)
+* [FanSpeed](https://github.com/artnod78/Terrarium/blob/master/libraries/FanSpeed)
 * [Reservoir](https://github.com/artnod78/Terrarium/blob/master/libraries/Reservoir)
 * [ReadKey](https://github.com/artnod78/Terrarium/blob/master/libraries/ReadKey)
 * [RetroLcd](https://github.com/artnod78/Terrarium/blob/master/libraries/RetroLcd)
