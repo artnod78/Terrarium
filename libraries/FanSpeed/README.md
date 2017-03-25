@@ -37,7 +37,7 @@ Valeur que vous pouvez adapter:
 -------------
 
 ### FanSpeed(IO_Pin, ee_addr)
-Instancie l'objet Thermostat.
+Instancie l'objet FanSpeed.
 
 Paramètres	  | Type | Requis | Description
 ------------- | ---- | ------ | -----------
