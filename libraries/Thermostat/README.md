@@ -41,7 +41,7 @@ invertedRelay | bool | Non	  | Par défaut égal `false`. Inverse l'état de la 
 -------------
 
 ### getValue(type)
-Renvoie le paramètre souhaité sous la fourme d'un flottant.
+Renvoie le paramètre souhaité sous la forme d'un flottant.
 
 Paramètres | Type  | Requis | Description
 ---------- | ----- | ------ | -----------
