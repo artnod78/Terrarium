@@ -1,7 +1,7 @@
 Terrarium
 ===================
 ![alt tag](https://raw.githubusercontent.com/artnod78/Terrarium/master/Images/Arduino_UNO_R3_Pinout.png)
-Contrôleur pour terrarium à base d'Arduino
+Gestion d'un terrarium à base d'Arduino
 * IHM: lcd 16x2 et keypad 5 touches
 * Gestion retro eclairage (durée et instensité)
 * Horloge temps réel
