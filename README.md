@@ -4,11 +4,11 @@ Gestion d'un terrarium à base d'Arduino
 * IHM: lcd 16x2 et keypad 5 touches
 * Gestion retro eclairage (durée et instensité)
 * Horloge temps réel
-* Timer journalier
-* Timer cyclic
-* Thermostat/Hygrostat
+* Timer journalier pour le réglage de la lumière
+* Timer cyclic pour les cycle de pulvérisation
+* Thermostat/Hygrostat pour le chauffage/brumisateur
 * Alerte niveau d'eau (réservoir)
-* Regulateur de vitesse (ventilateur)
+* Régulateur de vitesse (ventilateur)
 * Reset de la config
 
 ![alt tag](https://raw.githubusercontent.com/artnod78/Terrarium/master/Images/Arduino_UNO_R3_Pinout.png)
@@ -38,6 +38,12 @@ Gestion d'un terrarium à base d'Arduino
 -------------
 
 ### PATCH Note
+#### 2017/05/19 v0.5
+* Modification des menus.
+* Création du shield
+* Compléter la documentation.
+* Bug fix.
+
 #### 2017/03/18 v0.4
 * Créer la librairies FanSpeed (menu, saisi...).
 * Utiliser qu'un compteur pour les sous menu.

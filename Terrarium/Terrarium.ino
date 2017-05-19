@@ -1,16 +1,12 @@
 #include <EEPROM.h>
-
 #include <Wire.h>
 #include <RTClib.h>
-
 #include <LiquidCrystal.h>
 
 #include <OneWire.h>
 #include <DallasTemperature.h>
-
 #include <DHT.h>
 #include <DHT_U.h>
-
 #include <NewPing.h>
 
 #include <DailyTimer.h>
@@ -281,7 +277,7 @@ void pulve_saisi()
   lcd.print(increment);
 }
 
-// ### Tank Alert ###
+// ### TANK ###
 void reservoir_home()
 {
   lcd.setCursor(0, 0);
@@ -318,13 +314,13 @@ void reservoir_saisi()
   lcd.print(saisi_INT.value());
 }
 
-// ### HEATING ###
-void tapis_home()
+// ### TEMP ###
+void temp_home()
 {
   lcd.setCursor(0, 0);
-  lcd.print("Thermostat Tapis");
+  lcd.print("Temperature");
 }
-void tapis_conf()
+void temp_conf()
 {
   lcd.setCursor(0, 0);
   switch (sousMenu.index())
@@ -345,13 +341,7 @@ void tapis_conf()
       lcd.print("Temp Max Nuit");
       break;
 
-    case THERMO_ENABLE:
-      lcd.print("Actif:");
-      lcd.setCursor(0, 1);
-      lcd.print(tapis.isEnable() ? "Oui" : "Non");
-      break;
-
-    case THERMO_RETURN:
+    case TEMP_RETURN:
       lcd.print("Retour");
       break;
 
@@ -359,7 +349,7 @@ void tapis_conf()
       break;
   }
 }
-void thermo_saisi()
+void temp_saisi()
 {
   lcd.setCursor(0, 0);
   if (saisi_FLOAT.selected()) lcd.print("Entier ");
@@ -393,56 +383,99 @@ void thermo_saisi()
   lcd.print(saisi_FLOAT.decimal());
 }
 
-// ### FAN ###
-void ventilo_home()
+// ### HUM ###
+void hum_home()
 {
   lcd.setCursor(0, 0);
-  lcd.print("Ventilateur");
+  lcd.print("Humidite");
 }
-void ventilo_conf()
+void hum_conf()
 {
   lcd.setCursor(0, 0);
   switch (sousMenu.index())
   {
-    case FAN_TEMP_DAY_MIN:
-      lcd.print("temp Min Jour");
-      break;
-
-    case FAN_TEMP_DAY_MAX:
-      lcd.print("temp Max Jour");
-      break;
-
-    case FAN_HUM_DAY_MIN:
+    case HUM_DAY_MIN:
       lcd.print("hum Min Jour");
       break;
 
-    case FAN_HUM_DAY_MAX:
+    case HUM_DAY_MAX:
       lcd.print("hum Max Jour");
       break;
 
-    case FAN_TEMP_NIGHT_MIN:
-      lcd.print("temp Min Nuit");
-      break;
-
-    case FAN_TEMP_NIGHT_MAX:
-      lcd.print("temp Max Nuit");
-      break;
-
-    case FAN_HUM_NIGHT_MIN:
+    case HUM_NIGHT_MIN:
       lcd.print("hum Min Nuit");
       break;
 
-    case FAN_HUM_NIGHT_MAX:
+    case HUM_NIGHT_MAX:
       lcd.print("hum Max Nuit");
       break;
 
-    case FAN_ENABLE:
-      lcd.print("Actif:");
+    case HUM_RETURN:
+      lcd.print("Retour");
+      break;
+
+    default:
+      break;
+  }
+}
+void hum_saisi()
+{
+  lcd.setCursor(0, 0);
+  if (saisi_FLOAT.selected()) lcd.print("Entier ");
+  else lcd.print("Decimal ");
+  switch (sousMenu.index())
+  {
+    case HUM_DAY_MIN:
+      lcd.print("Hmin Jour");
+      break;
+
+    case HUM_DAY_MAX:
+      lcd.print("Hmax Jour");
+      break;
+
+    case HUM_NIGHT_MIN:
+      lcd.print("Hmin Nuit");
+      break;
+
+    case HUM_NIGHT_MAX:
+      lcd.print("Hmax Nuit");
+      break;
+
+    default:
+      break;
+  }
+  lcd.setCursor(0, 1);
+  if (saisi_FLOAT.entier() < 10) lcd.print("0");
+  lcd.print(saisi_FLOAT.entier());
+  lcd.print(".");
+  if (saisi_FLOAT.decimal() < 10) lcd.print("0");
+  lcd.print(saisi_FLOAT.decimal());
+}
+
+// ### THERMO ###
+void thermo_home()
+{
+  lcd.setCursor(0, 0);
+  lcd.print("Thermostat");
+}
+void thermo_conf()
+{
+  lcd.setCursor(0, 0);
+  switch (sousMenu.index())
+  {
+    case THERMO_HEAT:
+      lcd.print("Chauffage Actif");
+      lcd.setCursor(0, 1);
+      lcd.print(tapis.isEnable() ? "Oui" : "Non");
+      break;
+
+    case THERMO_FAN:
+      lcd.print("Ventilo Actif");
       lcd.setCursor(0, 1);
       lcd.print(ventilo.isEnable() ? "Oui" : "Non");
       break;
 
-    case FAN_RETURN:
+    case THERMO_RETURN:
       lcd.print("Retour");
       break;
 
@@ -867,12 +900,16 @@ void nav_menu()
             sousMenu = Compteur(RESERVOIR_LIMIT, RESERVOIR_RETURN);
             break;
 
-          case MENU_TAPIS:
-            sousMenu = Compteur(THERMO_DAY_MIN, THERMO_RETURN);
+          case MENU_TEMP:
+            sousMenu = Compteur(THERMO_DAY_MIN, TEMP_RETURN);
             break;
 
-          case MENU_VENTILO:
-            sousMenu = Compteur(FAN_TEMP_DAY_MIN, FAN_RETURN);
+          case MENU_HUM:
+            sousMenu = Compteur(HUM_DAY_MIN, HUM_RETURN);
+            break;
+
+          case MENU_THERMO:
+            sousMenu = Compteur(THERMO_HEAT, THERMO_RETURN);
             break;
 
           case MENU_CLOCK:
@@ -959,12 +996,68 @@ void nav_menu()
               }
               break;
 
-            case MENU_TAPIS:
+            case MENU_TEMP:
+              // Going back
+              if (sousMenu.index() == TEMP_RETURN)
+              {
+                sousMenu.setSelect(false);
+                menu.setSelect(false);
+              }
+              // Initialize Input-Menu
+              else
+			  {
+				  float tempValue = tapis.getValue(sousMenu.index());
+				  if(tempValue == 0) saisi_FLOAT.start(20);
+				  else saisi_FLOAT.start(tempValue);
+			  }
+              break;
+
+            case MENU_HUM:
+              // Going back
+              if (sousMenu.index() == HUM_RETURN)
+              {
+                sousMenu.setSelect(false);
+                menu.setSelect(false);
+              }
+              // Initialize Input-Menu
+              else
+			  {
+				  float tempValue = 0;
+				  switch(sousMenu.index())
+				  {
+					  case HUM_DAY_MIN:
+						tempValue = ventilo.getValue(FAN_HUM_DAY_MIN);
+						break;
+					  case HUM_DAY_MAX:
+						tempValue = ventilo.getValue(FAN_HUM_DAY_MAX);
+						break;
+					  case HUM_NIGHT_MIN:
+						tempValue = ventilo.getValue(FAN_HUM_NIGHT_MIN);
+						break;
+					  case HUM_NIGHT_MAX:
+						tempValue = ventilo.getValue(FAN_HUM_NIGHT_MAX);
+						break;
+					  default:
+						break;
+				  }
+				  if(tempValue == 0) saisi_FLOAT.start(80);
+				  else saisi_FLOAT.start(tempValue);
+			  }
+              break;
+
+            case MENU_THERMO:
               // switch enable - disable
-              if (sousMenu.index() == THERMO_ENABLE)
+              if ( sousMenu.index() == THERMO_HEAT)
               {
                 tapis.enable(!tapis.isEnable());
                 tapis.saveValue(THERMO_ENABLE);
+                sousMenu.setSelect(false);
+              }
+              // switch enable - disable
+              else if ( sousMenu.index() == THERMO_FAN)
+              {
+                ventilo.enable(!ventilo.isEnable());
+                ventilo.saveValue(FAN_ENABLE);
                 sousMenu.setSelect(false);
               }
               // Going back
@@ -973,26 +1066,6 @@ void nav_menu()
                 sousMenu.setSelect(false);
                 menu.setSelect(false);
               }
-              // Initialize Input-Menu
-              else saisi_FLOAT.start(tapis.getValue(sousMenu.index()));
-              break;
-
-            case MENU_VENTILO:
-              // switch enable - disable
-              if ( sousMenu.index() == FAN_ENABLE)
-              {
-                ventilo.enable(!ventilo.isEnable());
-                ventilo.saveValue(FAN_ENABLE);
-                sousMenu.setSelect(false);
-              }
-              // Going back
-              else if (sousMenu.index() == FAN_RETURN)
-              {
-                sousMenu.setSelect(false);
-                menu.setSelect(false);
-              }
-              // Initialize Input-Menu
-              else saisi_FLOAT.start(ventilo.getValue(sousMenu.index()));
               break;
 
             case MENU_CLOCK:
@@ -1089,7 +1162,7 @@ void nav_menu()
             }
             break;
 
-          case MENU_TAPIS:
+          case MENU_TEMP:
             // Input increment
             saisi_FLOAT.run(key);
             // Save setting
@@ -1100,24 +1173,57 @@ void nav_menu()
               {
                 tapis.setValue(sousMenu.index(), saisi_FLOAT.value());
                 tapis.saveValue(sousMenu.index());
+                ventilo.setValue(sousMenu.index(), saisi_FLOAT.value());
+                ventilo.saveValue(sousMenu.index());
               }
               // Back to Sub-Menu
               sousMenu.setSelect(false);
             }
             break;
 
-          case MENU_VENTILO:
+          case MENU_HUM:
             // Input increment
             saisi_FLOAT.run(key);
             // Save setting
             if (saisi_FLOAT.isSelect())
             {
-              // Save if not the same
-              if (saisi_FLOAT.value() != ventilo.getValue(sousMenu.index()) )
-              {
-                ventilo.setValue(sousMenu.index(), saisi_FLOAT.value());
-                ventilo.saveValue(sousMenu.index());
-              }
+			  switch(sousMenu.index())
+			  {
+				  case HUM_DAY_MIN:
+				    // Save if not the same
+					if (saisi_FLOAT.value() != ventilo.getValue(FAN_HUM_DAY_MIN) )
+					{
+					  ventilo.setValue(FAN_HUM_DAY_MIN, saisi_FLOAT.value());
+					  ventilo.saveValue(FAN_HUM_DAY_MIN);
+					}
+					break;
+				  case HUM_DAY_MAX:
+				    // Save if not the same
+					if (saisi_FLOAT.value() != ventilo.getValue(FAN_HUM_DAY_MAX) )
+					{
+					  ventilo.setValue(FAN_HUM_DAY_MAX, saisi_FLOAT.value());
+					  ventilo.saveValue(FAN_HUM_DAY_MAX);
+					}
+					break;
+				  case HUM_NIGHT_MIN:
+				    // Save if not the same
+					if (saisi_FLOAT.value() != ventilo.getValue(FAN_HUM_NIGHT_MIN) )
+					{
+					  ventilo.setValue(FAN_HUM_NIGHT_MIN, saisi_FLOAT.value());
+					  ventilo.saveValue(FAN_HUM_NIGHT_MIN);
+					}
+					break;
+				  case HUM_NIGHT_MAX:
+				    // Save if not the same
+					if (saisi_FLOAT.value() != ventilo.getValue(FAN_HUM_NIGHT_MAX) )
+					{
+					  ventilo.setValue(FAN_HUM_NIGHT_MAX, saisi_FLOAT.value());
+					  ventilo.saveValue(FAN_HUM_NIGHT_MAX);
+					}
+					break;
+				  default:
+					break;
+			  }
               // Back to Sub-Menu
               sousMenu.setSelect(false);
             }
@@ -1181,12 +1287,8 @@ void nav_menu()
                 // Save setting
                 if (saisi_INT.isSelect())
                 {
-                  // Save if not the same
-                  if (saisi_INT.value() != retro.getValue(sousMenu.index()) )
-                  {
-                    retro.setValue(sousMenu.index(), saisi_INT.value());
-                    retro.saveValue(sousMenu.index());
-                  }
+                  retro.setValue(sousMenu.index(), saisi_INT.value());
+                  retro.saveValue(sousMenu.index());
                   // Back to Sub-Menu
                   sousMenu.setSelect(false);
                 }
@@ -1259,16 +1361,21 @@ void print_lcd()
       else reservoir_saisi();
       break;
 
-    case MENU_TAPIS:
-      if (menu.isSelect() == false) tapis_home();
-      else if (sousMenu.isSelect() == false) tapis_conf();
-      else thermo_saisi();
+    case MENU_TEMP:
+      if (menu.isSelect() == false) temp_home();
+      else if (sousMenu.isSelect() == false) temp_conf();
+      else temp_saisi();
       break;
 
-    case MENU_VENTILO:
-      if (menu.isSelect() == false) ventilo_home();
-      else if (sousMenu.isSelect() == false) ventilo_conf();
-      else thermo_saisi();
+    case MENU_HUM:
+      if (menu.isSelect() == false) hum_home();
+      else if (sousMenu.isSelect() == false) hum_conf();
+      else hum_saisi();
+      break;
+
+    case MENU_THERMO:
+      if (menu.isSelect() == false) thermo_home();
+      else if (sousMenu.isSelect() == false) thermo_conf();
       break;
 
     case MENU_CLOCK:
@@ -1291,12 +1398,23 @@ void print_lcd()
 // ### MAIN ###
 void setup()
 {
+  // Initialize LCD
+  lcd.begin(16, 2);
+  digitalWrite(RETRO_PIN, HIGH);
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Welcome on");
+  lcd.setCursor(0, 1);
+  lcd.print("Terraduino");
+  lcd.setCursor(12, 1);
+  lcd.print("v0.5");
+  delay(5000);
+  lcd.clear();
+  digitalWrite(RETRO_PIN, LOW);
   // Initialize RTC
   Wire.begin();
   rtc.begin();
   if (! rtc.isrunning()) rtc.adjust(DateTime(__DATE__, __TIME__));
-  // Initialize LCD
-  lcd.begin(16, 2);
   // Initialize DHT22
   dht.begin();
   // Load OBJECTS
