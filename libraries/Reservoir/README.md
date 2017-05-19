@@ -1,5 +1,5 @@
 # Reservoir
-Permet d'avoir une alerte si le niveau d'eau dans un réservoir est en dessous de la limite.
+Permet d'avoir une alerte si le niveau d'eau dans un réservoir est en dessous de la limite définis.
 
 ## Constantes
  * `RESERVOIR_LIMIT` = 0
@@ -34,7 +34,7 @@ ee_addr	      | int  | Non	  | Par défaut égal `0`. Position de début dans l'
 -------------
 
 ### getValue()
-Renvoie le paramètre souhaité sous la forme d'un entier.
+Renvoie le paramètre souhaité sous la fourme d'un entier.
 
 
 -------------
@@ -86,25 +86,25 @@ value		  | bool | Non	  | Par défaut égal `true`. Active `true` ou désactive 
 -------------
 
 ### isEnable()
-Renvoie un booléen si le timer est actif ou non.
+Renvoie un booléen si l'alerte est actif ou non.
 
 
 -------------
 
 ### getEEPROM()
-renvoie l'adresse EEPROM
+renvoie l'adresse EEPROM.
 
 
 -------------
 
 ### getNextEEPROM()
-renvoie le prochain octet libre
+renvoie le prochain octet libre.
 
 
 -------------
 
 ### setEEPROM(addr)
-modifier l'adresse EEPROM
+modifier l'adresse EEPROM.
 
 Paramètres	  | Type | Requis | Description
 ------------- | ---- | ------ | -----------
