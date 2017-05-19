@@ -145,5 +145,6 @@ Sauvegarde la configuration dans l'EEPROM (5 octets).
 
 
 -------------
+
 ## Exemple
   * [Simple.ino](https://github.com/artnod78/Terrarium/blob/master/libraries/DailyTimer/examples/Simple/Simple.ino)
