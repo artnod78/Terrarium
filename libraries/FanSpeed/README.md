@@ -14,8 +14,7 @@ Configuration différente pour le jour et la nuit.
  * `FAN_HUM_NIGHT_MAX` = 7
  * `FAN_ENABLE` = 8
  * `FAN_EEPROM_LEN` = 33
- 
-Valeur que vous pouvez adapter:
+Valeur que vous pouvez adapter (valeur entre 0 et 255):
  * `FAN_SPEED_1`  = 85
  * `FAN_SPEED_2` = 170
  * `FAN_SPEED_3`  = 255
@@ -115,19 +114,19 @@ Renvoie un booléen si le timer est actif ou non.
 -------------
 
 ### getEEPROM()
-renvoie l'adresse EEPROM
+renvoie l'adresse EEPROM.
 
 
 -------------
 
 ### getNextEEPROM()
-renvoie le prochain octet libre
+renvoie le prochain octet libre.
 
 
 -------------
 
 ### setEEPROM(addr)
-modifier l'adresse EEPROM
+modifier l'adresse EEPROM.
 
 Paramètres	  | Type | Requis | Description
 ------------- | ---- | ------ | -----------
@@ -146,3 +145,6 @@ Sauvegarde la configuration dans l'EEPROM (33 octets).
 
 
 -------------
+
+## Exemple
+  * [Simple.ino](https://github.com/artnod78/Terrarium/blob/master/libraries/FanSpeed/examples/Simple/Simple.ino)
