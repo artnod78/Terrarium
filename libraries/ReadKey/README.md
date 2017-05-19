@@ -52,3 +52,6 @@ Renvoie la valeur lu lors de l'appel de `read()` sous la forme d'un entier.
 
 
 -------------
+
+## Exemple
+  * [Simple.ino](https://github.com/artnod78/Terrarium/blob/master/libraries/ReadKey/examples/Simple/Simple.ino)
