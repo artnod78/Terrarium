@@ -1,15 +1,15 @@
 Terrarium
 ===================
 Gestion d'un terrarium à base d'Arduino
+* Timer journalier pour le réglage de la lumière ON/OFF
+* Timer cyclic pour les cycle de pulvérisation
+* Thermostat/Hygrostat pour le chauffage/brumisateur
+* Alerte niveau d'eau pour le réservoir
+* Régulateur de vitesse pour le ventilateur
 * IHM: lcd 16x2 et keypad 5 touches
 * Gestion retro eclairage (durée et instensité)
 * Horloge temps réel
-* Timer journalier pour le réglage de la lumière
-* Timer cyclic pour les cycle de pulvérisation
-* Thermostat/Hygrostat pour le chauffage/brumisateur
-* Alerte niveau d'eau (réservoir)
-* Régulateur de vitesse (ventilateur)
-* Reset de la config
+* Rénitialisation d'usine de la configiguration
 
 ![alt tag](https://raw.githubusercontent.com/artnod78/Terrarium/master/Images/Arduino_UNO_R3_Pinout.png)
 
