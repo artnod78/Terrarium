@@ -1,6 +1,6 @@
 # Thermostat
-Thermostat. Active ou désactive une broche en dehors de la plage définis.
-Peut être utilisé pour température ou de taux d'humidité ou autres.
+Thermostat. Active ou désactive une broche selon une plage définis.
+Peut être utilisé pour la température ou le taux d'humidité ou autres.
 Configuration différente pour le jour et la nuit.
 
 ## Constantes
@@ -9,7 +9,7 @@ Configuration différente pour le jour et la nuit.
  * `THERMO_NIGHT_MIN` = 2
  * `THERMO_NIGHT_MAX` = 3
  * `THERMO_ENABLE` = 4
- * `THERMO_EEPROM_LEN`  = 5
+ * `THERMO_EEPROM_LEN`  = 17
 
 ## Méthodes
 * [Thermostat()](#thermostatio_pin-ee_addr-invertedrelay)
@@ -41,7 +41,7 @@ invertedRelay | bool | Non	  | Par défaut égal `false`. Inverse l'état de la 
 -------------
 
 ### getValue(type)
-Renvoie le paramètre souhaité sous la forme d'un flottant.
+Renvoie le paramètre souhaité sous la fourme d'un flottant.
 
 Paramètres | Type  | Requis | Description
 ---------- | ----- | ------ | -----------
@@ -99,25 +99,25 @@ value		  | bool | Non	  | Par défaut égal `true`. Active `true` ou désactive 
 -------------
 
 ### isEnable()
-Renvoie un booléen si le timer est actif ou non.
+Renvoie un booléen si le Thermostat est actif ou non.
 
 
 -------------
 
 ### getEEPROM()
-renvoie l'adresse EEPROM
+renvoie l'adresse EEPROM.
 
 
 -------------
 
 ### getNextEEPROM()
-renvoie le prochain octet libre
+renvoie le prochain octet libre.
 
 
 -------------
 
 ### setEEPROM(addr)
-modifier l'adresse EEPROM
+modifier l'adresse EEPROM.
 
 Paramètres	  | Type | Requis | Description
 ------------- | ---- | ------ | -----------
@@ -136,3 +136,6 @@ Sauvegarde la configuration dans l'EEPROM (17 octets).
 
 
 -------------
+
+## Exemple
+  * [Simple.ino](https://github.com/artnod78/Terrarium/blob/master/libraries/Thermostat/examples/Simple/Simple.ino)
