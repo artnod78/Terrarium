@@ -145,5 +145,4 @@ Sauvegarde la configuration dans l'EEPROM (5 octets).
 
 
 -------------
-##Exemple
-[Ici](https://raw.githubusercontent.com/artnod78/Terrarium/master/libraries/CyclicTimer/examples/Simple/Simple.ino)
+## [Exemple](https://raw.githubusercontent.com/artnod78/Terrarium/master/libraries/CyclicTimer/examples/Simple/Simple.ino)
