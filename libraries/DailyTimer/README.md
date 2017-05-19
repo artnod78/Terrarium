@@ -38,7 +38,7 @@ invertedRelay | bool | Non	  | Par défaut égal `false`. Inverse l'état de la 
 -------------
 
 ### getValue(type)
-Renvoie le paramètre souhaité sous la forme d'un entier, représentant un nombre de minute depuis minuit.
+Renvoie le paramètre souhaité sous la fourme d'un entier, représentant un nombre de minute depuis minuit.
 
 Paramètres | Type | Requis | Description
 ---------- | ---- | ------ | -----------
@@ -53,7 +53,7 @@ Permet de configurer un paramètre.
 Paramètres | Type | Requis | Description
 ---------- | ---- | ------ | -----------
 type	   | int  | Oui	   | Utiliser les constantes `DAILY_ON` et `DAILY_OFF`.
-minute	   | int  | Oui	   | Nombre de minute depuis minuit. Exemple pour *10:27* `minute = (10*60) + 27`
+minute	   | int  | Oui	   | Nombre de minute depuis minuit. Exemple pour *10:27* `minute = (10*60) + 27`.
 
 
 -------------
@@ -64,8 +64,8 @@ Permet de configurer un paramètre.
 Paramètres | Type | Requis | Description
 ---------- | ---- | ------ | -----------
 type	   | int  | Oui	   | Utiliser les constantes `DAILY_ON` et `DAILY_OFF`.
-HH	   	   | int  | Oui	   | Heure. Exemple pour *10:27* `HH = 10`
-MM	       | int  | Oui	   | Minute. Exemple pour *10:27* `MM = 27`
+HH	   	   | int  | Oui	   | Heure. Exemple pour *10:27* `HH = 10`.
+MM	       | int  | Oui	   | Minute. Exemple pour *10:27* `MM = 27`.
 
 
 -------------
@@ -85,7 +85,7 @@ Lance l'analyse.
 
 Paramètres	  | Type | Requis | Description
 ------------- | ---- | ------ | -----------
-currentTime	  | int  | Oui	  | Heure actuelle. Nombre de minute depuis minuit. Exemple pour *10:27* `minute = (10*60) + 27`
+currentTime	  | int  | Oui	  | Heure actuelle. Nombre de minute depuis minuit. Exemple pour *10:27* `minute = (10*60) + 27`.
 
 
 -------------
@@ -113,13 +113,13 @@ Renvoie un booléen si le timer est actif ou non.
 -------------
 
 ### getEEPROM()
-renvoie l'adresse EEPROM
+renvoie l'adresse EEPROM.
 
 
 -------------
 
 ### getNextEEPROM()
-renvoie le prochain octet libre
+renvoie le prochain octet libre.
 
 
 -------------
@@ -145,3 +145,4 @@ Sauvegarde la configuration dans l'EEPROM (5 octets).
 
 
 -------------
+![include ] (https://raw.githubusercontent.com/artnod78/Terrarium/master/libraries/CyclicTimer/examples/Simple/Simple.ino)
