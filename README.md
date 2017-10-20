@@ -33,6 +33,9 @@ Gestion d'un terrarium à base d'Arduino
 -------------
 
 ### TODO List
+* Refonte de la Classe CyclicTimer (type de cycle, nombre de pulvérisation et durée pulverisation).
+* Test du shield + doc.
+* Création du boitier.
 * Compléter la documentation.
 
 -------------
@@ -40,29 +43,29 @@ Gestion d'un terrarium à base d'Arduino
 ### PATCH Note
 #### 2017/05/19 v0.5
 * Modification des menus.
-* Création du shield
+* Création du shield.
 * Compléter la documentation.
 * Bug fix.
 
 #### 2017/03/18 v0.4
-* Créer la librairies FanSpeed (menu, saisi...).
+* Création de la librairies FanSpeed (menu, saisi...).
 * Utiliser qu'un compteur pour les sous menu.
 * Modifier le reset. Ne réinitiliser que les paramètres qui ont été modifié.
-* Créer un compteur pour la sasi de float.
+* Création d'un compteur pour la sasi de float.
 * Compléter la documentation.
 
 #### 2017/01/12 v0.3
-* Créer les menu pour la saisi du niveau d'eau critique dans le réservoir.
-* Créer les menu pour l'intensité et la durée du rétro éclairage.
-* Créer les menu pour vider l'EEPROM.
-* Mise à jour doc existante.
+* Création des menu pour la saisi du niveau d'eau critique dans le réservoir.
+* Création des menu pour l'intensité et la durée du rétro éclairage.
+* Création des menu pour vider l'EEPROM.
+* Compléter la documentation.
 
 #### 2017/01/10 v0.2
 * Fusionner les librairies Thermostat et Hygrostat pour en faire qu'une.
 * Limiter les sauvegardes dans l'EEPROM dans le cas où la nouvelle valeur et identique à l'ancienne.
 * Configurer l'adresse EEPROM pour les objets lors de sa déclaration (au lieu de le spécifier a chaque fois lors des sauvegarde et chargement).
 * Quelques modifications dans les compteurs.
-* Mise à jour doc existante.
+* Compléter la documentation.
 
 #### 2016/xx/xx v0.1
 * Start
