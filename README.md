@@ -42,7 +42,6 @@ Gestion d'un terrarium à base d'Arduino
 
 ### PATCH Note
 #### 2018/04/18 v0.6
-* Compléter la documentation.
 * Bug fix (constants des menu).
 
 #### 2017/05/19 v0.5
