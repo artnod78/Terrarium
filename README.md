@@ -13,6 +13,9 @@ Gestion d'un terrarium à base d'Arduino
 
 ![alt tag](https://raw.githubusercontent.com/artnod78/Terrarium/master/Images/Arduino_UNO_R3_Pinout.png)
 
+
+[discord](https://discord.gg/dszbz)  
+
 -------------
 
 ### Documentations
@@ -29,8 +32,6 @@ Gestion d'un terrarium à base d'Arduino
 * [CompteurHeure](https://github.com/artnod78/Terrarium/blob/master/libraries/CompteurHeure)
 * [CompteurSeconde](https://github.com/artnod78/Terrarium/blob/master/libraries/CompteurSeconde)
 * [CompteurInt](https://github.com/artnod78/Terrarium/blob/master/libraries/CompteurInt)
-
-[discord](https://discord.gg/dszbz)  
 -------------
 
 ### TODO List
