@@ -5,13 +5,15 @@
 
 #define FAN_TEMP_DAY_MIN	0
 #define FAN_TEMP_DAY_MAX	1
-#define FAN_HUM_DAY_MIN		2
-#define FAN_HUM_DAY_MAX		3
-#define FAN_TEMP_NIGHT_MIN	4
-#define FAN_TEMP_NIGHT_MAX	5
+#define FAN_TEMP_NIGHT_MIN	2
+#define FAN_TEMP_NIGHT_MAX	3
+
+#define FAN_HUM_DAY_MIN		4
+#define FAN_HUM_DAY_MAX		5
 #define FAN_HUM_NIGHT_MIN	6
 #define FAN_HUM_NIGHT_MAX	7
-#define FAN_ENABLE			8
+
+#define FAN_ENABLE		8
 #define FAN_EEPROM_LEN	33
 
 #define FAN_SPEED_0	0
