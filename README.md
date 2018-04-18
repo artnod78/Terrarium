@@ -30,6 +30,7 @@ Gestion d'un terrarium à base d'Arduino
 * [CompteurSeconde](https://github.com/artnod78/Terrarium/blob/master/libraries/CompteurSeconde)
 * [CompteurInt](https://github.com/artnod78/Terrarium/blob/master/libraries/CompteurInt)
 
+[discord](https://discord.gg/dszbz)  
 -------------
 
 ### TODO List
