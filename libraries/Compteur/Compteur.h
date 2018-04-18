@@ -5,16 +5,22 @@
 #define MENU_LIGHT		1
 #define MENU_PULVE		2
 #define MENU_RESERVOIR	3
-#define MENU_TAPIS		4
-#define MENU_VENTILO	5
-#define MENU_CLOCK		6
-#define MENU_GENERAL	7
+#define MENU_TEMP		4
+#define MENU_HUM		5
+#define MENU_THERMO		6
+#define MENU_CLOCK		7
+#define MENU_GENERAL	8
 
 #define DAILY_RETURN		3
 #define CYCLIC_RETURN		5
 #define RESERVOIR_RETURN	2
-#define TEMP_RETURN		5
-#define FAN_RETURN			9
+#define FAN_TEMP_RETURN		4
+#define FAN_HUM_RETURN		8
+
+
+#define THERMO_HEAT		0
+#define THERMO_FAN		1
+#define THERMO_RETURN	2
 
 #define CLOCK_DATE   	0
 #define CLOCK_HEURE	 	1
