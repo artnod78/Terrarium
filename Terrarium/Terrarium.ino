@@ -314,7 +314,7 @@ void reservoir_saisi()
   lcd.print(saisi_INT.value());
 }
 
-// ### TEMP ###
+// ### FANSPEED TEMP ###
 void temp_home()
 {
   lcd.setCursor(0, 0);
@@ -325,23 +325,23 @@ void temp_conf()
   lcd.setCursor(0, 0);
   switch (sousMenu.index())
   {
-    case THERMO_DAY_MIN:
+    case FAN_TEMP_DAY_MIN:
       lcd.print("Temp Min Jour");
       break;
 
-    case THERMO_DAY_MAX:
+    case FAN_TEMP_DAY_MAX:
       lcd.print("Temp Max Jour");
       break;
 
-    case THERMO_NIGHT_MIN:
+    case FAN_TEMP_NIGHT_MIN:
       lcd.print("Temp Min Nuit");
       break;
 
-    case THERMO_NIGHT_MAX:
+    case FAN_TEMP_NIGHT_MAX:
       lcd.print("Temp Max Nuit");
       break;
 
-    case TEMP_RETURN:
+    case FAN_TEMP_RETURN:
       lcd.print("Retour");
       break;
 
@@ -356,19 +356,19 @@ void temp_saisi()
   else lcd.print("Decimal ");
   switch (sousMenu.index())
   {
-    case THERMO_DAY_MIN:
+    case FAN_TEMP_DAY_MIN:
       lcd.print("Min Jour");
       break;
 
-    case THERMO_DAY_MAX:
+    case FAN_TEMP_DAY_MAX:
       lcd.print("Max Jour");
       break;
 
-    case THERMO_NIGHT_MIN:
+    case FAN_TEMP_NIGHT_MIN:
       lcd.print("Min Nuit");
       break;
 
-    case THERMO_NIGHT_MAX:
+    case FAN_TEMP_NIGHT_MAX:
       lcd.print("Max Nuit");
       break;
 
@@ -383,7 +383,7 @@ void temp_saisi()
   lcd.print(saisi_FLOAT.decimal());
 }
 
-// ### HUM ###
+// ### FANSPEED HUM ###
 void hum_home()
 {
   lcd.setCursor(0, 0);
@@ -394,23 +394,23 @@ void hum_conf()
   lcd.setCursor(0, 0);
   switch (sousMenu.index())
   {
-    case HUM_DAY_MIN:
+    case FAN_HUM_DAY_MIN:
       lcd.print("hum Min Jour");
       break;
 
-    case HUM_DAY_MAX:
+    case FAN_HUM_DAY_MAX:
       lcd.print("hum Max Jour");
       break;
 
-    case HUM_NIGHT_MIN:
+    case FAN_HUM_NIGHT_MIN:
       lcd.print("hum Min Nuit");
       break;
 
-    case HUM_NIGHT_MAX:
+    case FAN_HUM_NIGHT_MAX:
       lcd.print("hum Max Nuit");
       break;
 
-    case HUM_RETURN:
+    case FAN_HUM_RETURN:
       lcd.print("Retour");
       break;
 
@@ -425,19 +425,19 @@ void hum_saisi()
   else lcd.print("Decimal ");
   switch (sousMenu.index())
   {
-    case HUM_DAY_MIN:
+    case FAN_HUM_DAY_MIN:
       lcd.print("Hmin Jour");
       break;
 
-    case HUM_DAY_MAX:
+    case FAN_HUM_DAY_MAX:
       lcd.print("Hmax Jour");
       break;
 
-    case HUM_NIGHT_MIN:
+    case FAN_HUM_NIGHT_MIN:
       lcd.print("Hmin Nuit");
       break;
 
-    case HUM_NIGHT_MAX:
+    case FAN_HUM_NIGHT_MAX:
       lcd.print("Hmax Nuit");
       break;
 
@@ -901,11 +901,11 @@ void nav_menu()
             break;
 
           case MENU_TEMP:
-            sousMenu = Compteur(THERMO_DAY_MIN, TEMP_RETURN);
+            sousMenu = Compteur(FAN_TEMP_DAY_MIN, FAN_TEMP_RETURN);
             break;
 
           case MENU_HUM:
-            sousMenu = Compteur(HUM_DAY_MIN, HUM_RETURN);
+            sousMenu = Compteur(FAN_HUM_DAY_MIN, FAN_HUM_RETURN);
             break;
 
           case MENU_THERMO:
@@ -998,7 +998,7 @@ void nav_menu()
 
             case MENU_TEMP:
               // Going back
-              if (sousMenu.index() == TEMP_RETURN)
+              if (sousMenu.index() == THERMO_RETURN)
               {
                 sousMenu.setSelect(false);
                 menu.setSelect(false);
@@ -1014,7 +1014,7 @@ void nav_menu()
 
             case MENU_HUM:
               // Going back
-              if (sousMenu.index() == HUM_RETURN)
+              if (sousMenu.index() == FAN_HUM_RETURN)
               {
                 sousMenu.setSelect(false);
                 menu.setSelect(false);
@@ -1025,16 +1025,16 @@ void nav_menu()
 				  float tempValue = 0;
 				  switch(sousMenu.index())
 				  {
-					  case HUM_DAY_MIN:
+					  case FAN_HUM_DAY_MIN:
 						tempValue = ventilo.getValue(FAN_HUM_DAY_MIN);
 						break;
-					  case HUM_DAY_MAX:
+					  case FAN_HUM_DAY_MAX:
 						tempValue = ventilo.getValue(FAN_HUM_DAY_MAX);
 						break;
-					  case HUM_NIGHT_MIN:
+					  case FAN_HUM_NIGHT_MIN:
 						tempValue = ventilo.getValue(FAN_HUM_NIGHT_MIN);
 						break;
-					  case HUM_NIGHT_MAX:
+					  case FAN_HUM_NIGHT_MAX:
 						tempValue = ventilo.getValue(FAN_HUM_NIGHT_MAX);
 						break;
 					  default:
@@ -1189,7 +1189,7 @@ void nav_menu()
             {
 			  switch(sousMenu.index())
 			  {
-				  case HUM_DAY_MIN:
+				  case FAN_HUM_DAY_MIN:
 				    // Save if not the same
 					if (saisi_FLOAT.value() != ventilo.getValue(FAN_HUM_DAY_MIN) )
 					{
@@ -1197,7 +1197,7 @@ void nav_menu()
 					  ventilo.saveValue(FAN_HUM_DAY_MIN);
 					}
 					break;
-				  case HUM_DAY_MAX:
+				  case FAN_HUM_DAY_MAX:
 				    // Save if not the same
 					if (saisi_FLOAT.value() != ventilo.getValue(FAN_HUM_DAY_MAX) )
 					{
@@ -1205,7 +1205,7 @@ void nav_menu()
 					  ventilo.saveValue(FAN_HUM_DAY_MAX);
 					}
 					break;
-				  case HUM_NIGHT_MIN:
+				  case FAN_HUM_NIGHT_MIN:
 				    // Save if not the same
 					if (saisi_FLOAT.value() != ventilo.getValue(FAN_HUM_NIGHT_MIN) )
 					{
@@ -1213,7 +1213,7 @@ void nav_menu()
 					  ventilo.saveValue(FAN_HUM_NIGHT_MIN);
 					}
 					break;
-				  case HUM_NIGHT_MAX:
+				  case FAN_HUM_NIGHT_MAX:
 				    // Save if not the same
 					if (saisi_FLOAT.value() != ventilo.getValue(FAN_HUM_NIGHT_MAX) )
 					{
