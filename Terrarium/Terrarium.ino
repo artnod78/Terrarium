@@ -1407,7 +1407,7 @@ void setup()
   lcd.setCursor(0, 1);
   lcd.print("Terraduino");
   lcd.setCursor(12, 1);
-  lcd.print("v0.5");
+  lcd.print("v0.6");
   delay(5000);
   lcd.clear();
   digitalWrite(RETRO_PIN, LOW);
