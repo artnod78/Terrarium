@@ -14,7 +14,7 @@ void setup()
 	Wire.begin();
 	rtc.begin();
 	
-	// definition de l'heure de mise en route en période de croissance
+	// definition de l'heure de mise en route
 	// param 1 choix de temporisation (DAILY_ON,DAILY_OFF)
 	// param 2 = heure
 	// param 3 = minute
